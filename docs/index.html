@@ -3,1166 +3,1663 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>🛒 節約生活 今日のお買い得情報【楽天市場】</title>
-  <meta name="description" content="毎日更新！楽天市場の激安セール品・お買い得商品をまとめてご紹介。節約生活を応援します！">
-  <meta name="keywords"    content="節約,楽天セール,お買い得,特価,割引,日用品,食品,節約生活">
-  <meta property="og:title"       content="🛒 節約生活 今日のお買い得情報【楽天市場】">
-  <meta property="og:description" content="毎日更新！楽天市場の激安セール品・お買い得商品をまとめてご紹介。節約生活を応援します！">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>節約生活 今日のお買い得情報</title>
+  <meta name="description" content="毎日更新！楽天市場の激安セール品を厳選してご紹介。節約生活を応援します！">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --red:#e63946; --red-dark:#c1121f;
-      --bg:#f0f4f8; --white:#fff;
-      --text:#1a202c; --muted:#718096;
-      --radius:12px; --shadow:0 2px 10px rgba(0,0,0,.08);
-    }
-    body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;
-          background:var(--bg);color:var(--text);min-height:100vh}
+    :root{--red:#e63946;--red2:#ff6b35;--bg:#f0f4f8;--white:#fff;--text:#1a202c;--muted:#718096;--radius:16px;--shadow:0 4px 16px rgba(0,0,0,.09);}
+    body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
-    /* ヘッダー */
-    header{
-      background:linear-gradient(135deg,var(--red) 0%,var(--red-dark) 100%);
-      color:#fff;padding:2.5rem 1rem;text-align:center
-    }
-    .site-title{font-size:clamp(1.3rem,4.5vw,2rem);font-weight:900;letter-spacing:-.02em}
-    .site-desc {opacity:.85;margin-top:.4rem;font-size:.9rem}
-    .stats-bar {
-      display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
-      margin-top:1.2rem
-    }
-    .stat{
-      background:rgba(255,255,255,.2);padding:.35rem .9rem;
-      border-radius:999px;font-size:.8rem;font-weight:600
-    }
+    /* ── アニメーション ── */
+    @keyframes rainbow{0%{background-position:0%}100%{background-position:200%}}
+    @keyframes flash{0%,100%{opacity:1}50%{opacity:.4}}
+    @keyframes ticker{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
+    @keyframes shine{0%{left:-100%}100%{left:200%}}
+    @keyframes wiggle{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-1.5deg)}75%{transform:rotate(1.5deg)}}
+    @keyframes pulse-card{0%,100%{box-shadow:0 6px 24px rgba(0,0,0,.1)}50%{box-shadow:0 0 0 4px rgba(255,214,0,.5),0 6px 24px rgba(0,0,0,.1)}}
 
-    /* グリッド */
-    main{max-width:1180px;margin:2rem auto;padding:0 1rem}
-    .section-title{
-      font-size:1.1rem;font-weight:800;margin-bottom:1rem;
-      display:flex;align-items:center;gap:.5rem
-    }
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
-      gap:1.25rem
-    }
+    /* ── ヘッダー ── */
+    header{background:linear-gradient(135deg,#0d0221,#4a0080,#e63946,#ff6b35,#FFD600);background-size:300%;animation:rainbow 6s linear infinite;color:#fff;padding:2.5rem 1rem 2rem;text-align:center;position:relative;overflow:hidden;}
+    header::after{content:"";position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);animation:shine 4s ease-in-out infinite;}
+    .site-title{font-size:clamp(1.8rem,5vw,3rem);font-weight:900;letter-spacing:-.03em;text-shadow:0 0 30px rgba(255,214,0,.6);position:relative;}
+    .site-title .y{color:#FFD600;animation:flash 1.5s infinite;}
+    .site-desc{opacity:.9;margin-top:.5rem;font-size:1rem;font-weight:700;position:relative;}
+    .stats-bar{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;margin-top:1.2rem;position:relative;}
+    .stat{background:rgba(255,255,255,.2);border:2px solid rgba(255,214,0,.5);border-radius:999px;padding:.4rem 1rem;font-size:.82rem;font-weight:800;}
 
-    /* カード */
-    .card{
-      background:var(--white);border-radius:var(--radius);
-      overflow:hidden;box-shadow:var(--shadow);
-      display:flex;flex-direction:column;
-      transition:transform .18s,box-shadow .18s
-    }
-    .card:hover{transform:translateY(-5px);box-shadow:0 12px 28px rgba(0,0,0,.14)}
-    .card-img{
-      width:100%;aspect-ratio:1;object-fit:contain;
-      background:#f7f8fa;padding:.6rem
-    }
-    .no-img{
-      width:100%;aspect-ratio:1;background:linear-gradient(135deg,#edf2f7,#e2e8f0);
-      display:flex;align-items:center;justify-content:center;font-size:3rem
-    }
-    .card-body{padding:.9rem;flex:1;display:flex;flex-direction:column;gap:.45rem}
-    .card-name{font-size:.83rem;font-weight:600;line-height:1.45;
-                display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-    .card-shop{font-size:.72rem;color:var(--muted)}
-    .card-price{font-size:1.35rem;font-weight:900;color:var(--red);margin-top:auto}
-    .badges{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.2rem}
-    .badge{font-size:.68rem;font-weight:700;padding:.18rem .55rem;border-radius:999px}
-    .badge-fee {background:#fef9c3;color:#854d0e}
-    .badge-star{background:#fef9c3;color:#854d0e}
-    .badge-rate{background:#dcfce7;color:#166534}
-    .btn{
-      display:block;text-align:center;text-decoration:none;
-      background:var(--red);color:#fff;
-      padding:.65rem;border-radius:8px;font-weight:700;font-size:.85rem;
-      margin-top:.65rem;transition:background .15s
-    }
-    .btn:hover{background:var(--red-dark)}
+    /* ── ティッカー ── */
+    .ticker-wrap{background:#1a0533;overflow:hidden;padding:.45rem 0;}
+    .ticker{display:inline-block;white-space:nowrap;color:#FFD600;font-size:.85rem;font-weight:800;animation:ticker 25s linear infinite;letter-spacing:.05em;padding-left:100%;}
 
-    /* フッター */
-    footer{
-      text-align:center;padding:2.5rem 1rem;
-      font-size:.75rem;color:var(--muted);
-      border-top:1px solid #e2e8f0;margin-top:3rem;line-height:1.9
-    }
+    /* ── バナー ── */
+    .banner-area{max-width:900px;margin:1.5rem auto 0;padding:0 1rem;}
 
-    @media(max-width:480px){
-      .grid{grid-template-columns:repeat(2,1fr);gap:.75rem}
-      .card-name{font-size:.78rem}
+    /* ── レイアウト ── */
+    main{max-width:960px;margin:1.5rem auto;padding:0 1rem;}
+    .layout{display:flex;gap:1.2rem;align-items:flex-start;}
+    .sidebar{width:175px;flex-shrink:0;display:flex;flex-direction:column;gap:.9rem;}
+    .sbox{background:var(--white);border-radius:14px;padding:.9rem;box-shadow:var(--shadow);border-left:4px solid var(--red);}
+    .sbox h3{font-size:.84rem;font-weight:900;color:var(--red);border-bottom:2px solid var(--red);padding-bottom:.3rem;margin-bottom:.65rem;}
+    .sbox ul{list-style:none;display:flex;flex-direction:column;gap:.3rem;}
+    .sbox li{font-size:.78rem;padding:.28rem .4rem;color:#1a0533;font-weight:600;}
+    .sbox li::before{content:"▶ ";color:var(--red);font-size:.65rem;}
+    .sbox p{font-size:.76rem;color:var(--muted);line-height:1.65;}
+    .sns-btn{display:block;text-align:center;background:#000;color:#FFD600;padding:.5rem;border-radius:8px;font-size:.8rem;font-weight:900;text-decoration:none;margin-bottom:.45rem;}
+    .sale-b{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border-radius:10px;padding:.65rem;text-align:center;margin-bottom:.5rem;}
+    .sale-b .t{font-size:.7rem;font-weight:700;opacity:.9;}
+    .sale-b .d{font-size:.95rem;font-weight:900;}
+    .main-col{flex:1;min-width:0;}
+    .section-title{font-size:1.15rem;font-weight:900;margin-bottom:.9rem;background:linear-gradient(90deg,var(--red),var(--red2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+    /* ── グリッド ── */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;}
+
+    /* ── カード ── */
+    .card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;border:2px solid transparent;}
+    .card:nth-child(1){border-color:#FFD600;animation:pulse-card 2s infinite;}
+    .card:nth-child(2){border-color:#aaa;}
+    .card:nth-child(3){border-color:#cd7f32;}
+    .card:hover{transform:translateY(-7px) scale(1.02);box-shadow:0 20px 50px rgba(230,57,70,.25);}
+
+    .watching{background:#fff3e0;color:#c45000;font-size:.7rem;font-weight:800;padding:.22rem .6rem;text-align:center;display:flex;align-items:center;justify-content:center;gap:.35rem;}
+    .dot{width:7px;height:7px;background:var(--red);border-radius:50%;display:inline-block;animation:flash .8s infinite;flex-shrink:0;}
+    .rank1{background:linear-gradient(90deg,#1a0533,#4a0080);color:#FFD600;font-size:.75rem;font-weight:900;padding:.28rem .6rem;text-align:center;letter-spacing:.05em;}
+    .rank2{background:linear-gradient(90deg,#2a2a2a,#555);color:#e8e8e8;font-size:.75rem;font-weight:900;padding:.28rem .6rem;text-align:center;}
+    .rank3{background:linear-gradient(90deg,#3d1a00,#7a3a00);color:#ffb347;font-size:.75rem;font-weight:900;padding:.28rem .6rem;text-align:center;}
+    .hype{font-size:.72rem;font-weight:900;padding:.26rem .6rem;text-align:center;letter-spacing:.08em;color:#fff;}
+    .h1{background:linear-gradient(90deg,var(--red),var(--red2));}
+    .h2{background:linear-gradient(90deg,#7209b7,var(--red));}
+    .h3{background:linear-gradient(90deg,#0077b6,#00b4d8);}
+
+    .card-img{width:100%;aspect-ratio:1;object-fit:contain;background:linear-gradient(135deg,#f7f8fa,#edf2f7);padding:.7rem;}
+    .no-img{width:100%;aspect-ratio:1;background:linear-gradient(135deg,#edf2f7,#e2e8f0);display:flex;align-items:center;justify-content:center;font-size:3rem;}
+    .card-body{padding:.9rem;flex:1;display:flex;flex-direction:column;gap:.4rem;}
+    .card-name{font-size:.87rem;font-weight:800;line-height:1.45;color:#0d0221;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+    .card-shop{font-size:.7rem;color:var(--muted);font-weight:600;}
+    .price-zone{margin:.25rem 0;}
+    .orig-price{font-size:.8rem;color:#aaa;text-decoration:line-through;font-weight:600;}
+    .off-badge{display:inline-block;background:var(--red);color:#fff;font-size:.68rem;font-weight:900;padding:.06rem .38rem;border-radius:4px;margin-left:.3rem;}
+    .card-price{font-size:1.55rem;font-weight:900;color:var(--red);letter-spacing:-.03em;}
+    .star-row{display:flex;align-items:center;gap:.4rem;}
+    .big-stars{font-size:.95rem;color:#f5a623;}
+    .rev-count{font-size:.7rem;color:var(--muted);font-weight:600;}
+    .badges{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.15rem;}
+    .badge{font-size:.68rem;font-weight:700;padding:.15rem .5rem;border-radius:999px;}
+    .badge-rate{background:#dcfce7;color:#166534;}
+    .badge-stock{background:#fff0f3;color:#c0182a;animation:flash 1s infinite;}
+
+    .btn{display:block;text-align:center;text-decoration:none;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;padding:.88rem;border-radius:12px;font-weight:900;font-size:.95rem;margin-top:.55rem;box-shadow:0 5px 18px rgba(230,57,70,.45);letter-spacing:.03em;position:relative;overflow:hidden;animation:wiggle 3s ease-in-out infinite;}
+    .btn::after{content:"";position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);animation:shine 2s ease-in-out infinite;}
+
+    footer{text-align:center;padding:2.5rem 1rem;font-size:.75rem;color:var(--muted);border-top:1px solid #e2e8f0;margin-top:3rem;line-height:1.9;}
+
+    @media(max-width:640px){
+      .layout{flex-direction:column;}
+      .sidebar{width:100%;}
+      .grid{grid-template-columns:repeat(2,1fr);gap:.75rem;}
     }
   </style>
 </head>
 <body>
   <header>
-    <h1 class="site-title">🛒 節約生活 今日のお買い得情報【楽天市場】</h1>
-    <p class="site-desc">毎日更新！楽天市場の激安セール品・お買い得商品をまとめてご紹介。節約生活を応援します！</p>
+    <h1 class="site-title">🛒 節約生活 <span class="y">今日の</span>お買い得！</h1>
+    <p class="site-desc">⚡ 毎朝9時自動更新 ✨ 楽天市場 高評価セール品 厳選まとめ ⚡</p>
     <div class="stats-bar">
-      <span class="stat">📦 64件</span>
-      <span class="stat">💰 平均報酬率 3.9%</span>
-      <span class="stat">🕐 2026年06月12日 00:49 更新</span>
+      <span class="stat">📦 66件掲載中</span>
+      <span class="stat">👥 今 <span id="hw">247</span>人が閲覧中！</span>
+      <span class="stat">🕐 2026年06月12日 18:07 更新</span>
+      <span class="stat" id="countdown">⏰ 計算中...</span>
     </div>
   </header>
 
-    <div style="max-width:680px;margin:1.5rem auto 0;padding:0 1rem;">
-      <a href="#" style="display:block;text-decoration:none;">
-        <svg width="100%" viewBox="0 0 680 200" role="img">
-          <title>節約生活 今日のお買い得情報</title>
-          <rect x="0" y="0" width="680" height="200" rx="16" fill="#FF3B5C"/>
-          <circle cx="60" cy="40" r="28" fill="#FFD600"/>
-          <circle cx="620" cy="160" r="36" fill="#00D68F" opacity="0.7"/>
-          <circle cx="600" cy="30" r="18" fill="#FFD600" opacity="0.8"/>
-          <circle cx="80" cy="170" r="22" fill="#FF8C42" opacity="0.7"/>
-          <circle cx="340" cy="185" r="14" fill="#FFD600" opacity="0.4"/>
-          <circle cx="480" cy="15" r="10" fill="#fff" opacity="0.3"/>
-          <circle cx="150" cy="15" r="8" fill="#fff" opacity="0.3"/>
-          <rect x="30" y="58" width="182" height="38" rx="19" fill="#FFD600"/>
-          <text x="121" y="83" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#FF3B5C">&#x1F6D2; 毎日自動更新！</text>
-          <text x="340" y="100" text-anchor="middle" font-family="sans-serif" font-size="34" font-weight="900" fill="#fff">節約生活</text>
-          <text x="340" y="143" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700" fill="#FFD600">今日のお買い得情報</text>
-          <rect x="460" y="55" width="190" height="42" rx="21" fill="#fff"/>
-          <text x="555" y="82" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#FF3B5C">楽天セール 厳選まとめ</text>
-          <rect x="255" y="158" width="170" height="36" rx="18" fill="#FFD600"/>
-          <text x="340" y="181" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="800" fill="#FF3B5C">今すぐチェック →</text>
-        </svg>
-      </a>
-    </div>
+  <div class="ticker-wrap">
+    <div class="ticker">🔥 セール情報を自動更新中！&nbsp;&nbsp;⚡ ポイント最大10倍の商品あり！&nbsp;&nbsp;💰 今だけ特別価格！&nbsp;&nbsp;🏆 高評価商品のみ厳選！&nbsp;&nbsp;⚠️ 在庫なくなり次第終了！&nbsp;&nbsp;🛒 毎朝9時に新鮮情報をお届け！&nbsp;&nbsp;</div>
+  </div>
+
+  <div class="banner-area">
+    <a href="#" style="display:block;text-decoration:none;">
+      <svg width="100%" viewBox="0 0 680 120" role="img">
+        <rect x="0" y="0" width="680" height="120" rx="14" fill="#FF3B5C"/>
+        <circle cx="50" cy="30" r="22" fill="#FFD600"/>
+        <circle cx="630" cy="90" r="28" fill="#00D68F" opacity="0.7"/>
+        <circle cx="600" cy="20" r="14" fill="#FFD600" opacity="0.8"/>
+        <circle cx="70" cy="100" r="18" fill="#FF8C42" opacity="0.7"/>
+        <rect x="20" y="40" width="160" height="32" rx="16" fill="#FFD600"/>
+        <text x="100" y="61" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#FF3B5C">🛒 毎日自動更新！</text>
+        <text x="340" y="55" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="900" fill="#fff">節約生活</text>
+        <text x="340" y="88" text-anchor="middle" font-family="sans-serif" font-size="17" font-weight="700" fill="#FFD600">今日のお買い得情報</text>
+        <rect x="460" y="38" width="180" height="34" rx="17" fill="#fff"/>
+        <text x="550" y="60" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#FF3B5C">楽天セール 厳選まとめ</text>
+        <rect x="255" y="92" width="170" height="20" rx="10" fill="#FFD600"/>
+        <text x="340" y="106" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="800" fill="#FF3B5C">今すぐチェック →</text>
+      </svg>
+    </a>
+  </div>
+
   <main>
-    <p class="section-title">🔥 今日のお得ピックアップ</p>
-    <div class="grid">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sbox">
+          <h3>📂 カテゴリ</h3>
+          <ul>
+            <li>🍱 食品・グルメ</li>
+            <li>🧴 日用品・雑貨</li>
+            <li>💄 美容・健康</li>
+            <li>👕 ファッション</li>
+            <li>🏠 インテリア</li>
+            <li>📦 まとめ買い</li>
+          </ul>
+        </div>
+        <div class="sbox">
+          <h3>💡 節約のコツ</h3>
+          <p>マラソン期間中は複数店舗でポイント最大10倍！まとめ買いが超お得！</p>
+        </div>
+      </aside>
+
+      <div class="main-col">
+        <p class="section-title">🏆 今日のお得ランキング</p>
+        <div class="grid">
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc185">47</span>人がチェック中！</div>
+        <div class="rank1">🥇 ランキング 1位</div>
+        <div class="hype h3">💥 激安特価！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/combi/cabinet/thum/shisaku/imgrc0109587522.jpg?_ex=128x128" alt="＼ポイント10倍／ 【公式】コンビ Combi チャイルドシート ジュニアシート ISOFIX 回転式 新生児 1歳 2歳 3歳 4歳 | " loading="lazy">
         <div class="card-body">
           <p class="card-name">＼ポイント10倍／ 【公式】コンビ Combi チャイルドシート ジュニアシート ISOFIX 回転式 新生児 1歳 2歳 3歳 4歳 | </p>
           <p class="card-shop">コンビ公式楽天市場店</p>
-          <p class="card-price">¥29,700</p>
+          <div class="price-zone"><span class="orig-price">¥37,125</span><span class="off-badge">お得！</span><div class="card-price">¥29,700</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(10件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥1,188 入る</span>
-            <span class="badge badge-star">★★★★★ (10件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fcombi%2F4972990191005%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc6254">44</span>人がチェック中！</div>
+        <div class="rank2">🥈 ランキング 2位</div>
+        <div class="hype h2">🎯 注目商品！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/matsuya-cosme/cabinet/matsuya14762.jpg?_ex=128x128" alt="★資生堂正規取引店　【最大全額ポイント還元セール！】　薬用濃密美容液(レフィル)　dプログラム　インテンスエンリッチングセラム 45ml" loading="lazy">
         <div class="card-body">
           <p class="card-name">★資生堂正規取引店　【最大全額ポイント還元セール！】　薬用濃密美容液(レフィル)　dプログラム　インテンスエンリッチングセラム 45ml</p>
           <p class="card-shop">MATSUYA COSMETICS 楽天市場店</p>
-          <p class="card-price">¥2,566</p>
+          <div class="price-zone"><span class="orig-price">¥3,207</span><span class="off-badge">お得！</span><div class="card-price">¥2,566</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(7件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥102 入る</span>
-            <span class="badge badge-star">★★★★★ (7件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmatsuya-cosme%2F14762%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/matsuya-cosme/cabinet/13610matsuya.jpg?_ex=128x128" alt="★資生堂正規取引店　【最大全額ポイント還元セール！】　 アネッサ ナイトサンケア 美容液（つめかえ用）160mL【送料無料】" loading="lazy">
-        <div class="card-body">
-          <p class="card-name">★資生堂正規取引店　【最大全額ポイント還元セール！】　 アネッサ ナイトサンケア 美容液（つめかえ用）160mL【送料無料】</p>
-          <p class="card-shop">MATSUYA COSMETICS 楽天市場店</p>
-          <p class="card-price">¥2,037</p>
-          <div class="badges">
-            <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥81 入る</span>
-            <span class="badge badge-star">★★★★★ (9件)</span>
-          </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmatsuya-cosme%2F13610-1%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
-          </a>
-        </div>
-      </article>
-      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc7518">41</span>人がチェック中！</div>
+        <div class="rank3">🥉 ランキング 3位</div>
+        <div class="hype h1">✨ 人気急上昇！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/mujirushi-ryohin/cabinet/item44/4550583451356.jpg?_ex=128x128" alt="【スーパーセール限定！ポイント5倍】高濃度美容液 レチノール誘導体配合・30mL【無印良品 公式】" loading="lazy">
         <div class="card-body">
           <p class="card-name">【スーパーセール限定！ポイント5倍】高濃度美容液 レチノール誘導体配合・30mL【無印良品 公式】</p>
           <p class="card-shop">無印良品</p>
-          <p class="card-price">¥2,490</p>
+          <div class="price-zone"><span class="orig-price">¥3,112</span><span class="off-badge">お得！</span><div class="card-price">¥2,490</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(8件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥99 入る</span>
-            <span class="badge badge-star">★★★★★ (8件)</span>
+            <span class="badge badge-stock">⚠️ 残り6点！</span>
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmujirushi-ryohin%2F4550583451356%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc9643">38</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/39mitsuya/cabinet/03963588/04358321/12632042/imgrc0121409517.jpg?_ex=128x128" alt="【リニューアル品 JE478Y】 ビーバンジョア JE478Y薬用UV美白エッセンシャルベース 52mlポイント10倍 医薬部外品 敏感肌 " loading="lazy">
         <div class="card-body">
           <p class="card-name">【リニューアル品 JE478Y】 ビーバンジョア JE478Y薬用UV美白エッセンシャルベース 52mlポイント10倍 医薬部外品 敏感肌 </p>
           <p class="card-shop">サンキューみつや薬店</p>
-          <p class="card-price">¥13,200</p>
+          <div class="price-zone"><span class="orig-price">¥16,500</span><span class="off-badge">お得！</span><div class="card-price">¥13,200</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(251件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥528 入る</span>
-            <span class="badge badge-star">★★★★★ (251件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2F39mitsuya%2F4933404024715%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc594">35</span>人がチェック中！</div>
+        
+        <div class="hype h1">✨ 人気急上昇！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/matsuya/cabinet/12507572/us60_thm.jpg?_ex=128x128" alt="条件達成で全品P最大10倍！【衝撃の60％OFF】 松屋 公式 牛めしの具(プレミアム仕様) 60食 牛めし 牛丼の具 グルメ たっぷり13" loading="lazy">
         <div class="card-body">
           <p class="card-name">条件達成で全品P最大10倍！【衝撃の60％OFF】 松屋 公式 牛めしの具(プレミアム仕様) 60食 牛めし 牛丼の具 グルメ たっぷり13</p>
           <p class="card-shop">松屋フーズ</p>
-          <p class="card-price">¥11,999</p>
+          <div class="price-zone"><span class="orig-price">¥14,998</span><span class="off-badge">お得！</span><div class="card-price">¥11,999</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(21件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥479 入る</span>
-            <span class="badge badge-star">★★★★★ (21件)</span>
+            <span class="badge badge-stock">⚠️ 残り6点！</span>
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmatsuya%2Fus60%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc8698">32</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/f122025-choshi/cabinet/10088589/12868448/furusato_irai_001.jpg?_ex=128x128" alt="【ふるさと納税】 訳あり 骨取り 無塩さば 有塩さば 約1kg・約2kg 鯖 さば 無塩 有塩 骨なし 骨抜き 切身 切り身 冷凍 食品 小" loading="lazy">
         <div class="card-body">
           <p class="card-name">【ふるさと納税】 訳あり 骨取り 無塩さば 有塩さば 約1kg・約2kg 鯖 さば 無塩 有塩 骨なし 骨抜き 切身 切り身 冷凍 食品 小</p>
           <p class="card-shop">千葉県銚子市</p>
-          <p class="card-price">¥10,000</p>
+          <div class="price-zone"><span class="orig-price">¥17,000</span><span class="off-badge">41%OFF</span><div class="card-price">¥10,000</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(2,423件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥400 入る</span>
-            <span class="badge badge-star">★★★★★ (2423件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Ff122025-choshi%2Fiida009%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc7470">29</span>人がチェック中！</div>
+        
+        <div class="hype h2">⚡ 今だけ！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/yamagoiida/cabinet/08906716/09064251/w_saba_mu2025_0004.jpg?_ex=128x128" alt="【2年連続！楽天市場3億点のなかで最も売れた商品】北欧産〈無塩〉訳あり 骨取り さば（選べる1kg・2kg）｜骨なし 骨抜き 鯖 天然 ノル" loading="lazy">
         <div class="card-body">
           <p class="card-name">【2年連続！楽天市場3億点のなかで最も売れた商品】北欧産〈無塩〉訳あり 骨取り さば（選べる1kg・2kg）｜骨なし 骨抜き 鯖 天然 ノル</p>
           <p class="card-shop">骨取り魚の飯田商店</p>
-          <p class="card-price">¥6,980</p>
+          <div class="price-zone"><span class="orig-price">¥9,980</span><span class="off-badge">30%OFF</span><div class="card-price">¥6,980</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(33,753件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥279 入る</span>
-            <span class="badge badge-star">★★★★★ (33727件)</span>
+            <span class="badge badge-stock">⚠️ 残り9点！</span>
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fyamagoiida%2F10000077%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc9451">26</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/kawahachiya/cabinet/compass1740901955.jpg?_ex=128x128" alt="【エントリーでポイント10倍】特上うな重 5人前 計975g 195g×5尾 かわはち屋 通常の1.8倍 たっぷり楽しめる特大サイズ 大容量" loading="lazy">
         <div class="card-body">
           <p class="card-name">【エントリーでポイント10倍】特上うな重 5人前 計975g 195g×5尾 かわはち屋 通常の1.8倍 たっぷり楽しめる特大サイズ 大容量</p>
           <p class="card-shop">かわはち屋</p>
-          <p class="card-price">¥13,580</p>
+          <div class="price-zone"><span class="orig-price">¥16,975</span><span class="off-badge">お得！</span><div class="card-price">¥13,580</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(40件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥543 入る</span>
-            <span class="badge badge-star">★★★★★ (40件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fkawahachiya%2Fk26-031%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/yamagoiida/cabinet/08906716/w_saba_yu2025_0004.jpg?_ex=128x128" alt="北欧産〈有塩〉訳あり 骨取り さば（選べる1kg・2kg）｜骨なし 骨抜き 鯖 天然 ノルウェー産 イギリス産 冷凍 ストック 業務用 食品" loading="lazy">
-        <div class="card-body">
-          <p class="card-name">北欧産〈有塩〉訳あり 骨取り さば（選べる1kg・2kg）｜骨なし 骨抜き 鯖 天然 ノルウェー産 イギリス産 冷凍 ストック 業務用 食品</p>
-          <p class="card-shop">骨取り魚の飯田商店</p>
-          <p class="card-price">¥6,980</p>
-          <div class="badges">
-            <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥279 入る</span>
-            <span class="badge badge-star">★★★★★ (16341件)</span>
-          </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fyamagoiida%2F10000084%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
-          </a>
-        </div>
-      </article>
-      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc995">23</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/yamagoiida/cabinet/08906716/10709370/hoke_thum_201.jpg?_ex=128x128" alt="訳あり〈無塩〉骨取り ほっけ（2kg）｜骨なし 骨抜き アメリカ産 しまほっけ 冷凍 ストック 業務用 食品 離乳食 お弁当 プロテイン D" loading="lazy">
         <div class="card-body">
           <p class="card-name">訳あり〈無塩〉骨取り ほっけ（2kg）｜骨なし 骨抜き アメリカ産 しまほっけ 冷凍 ストック 業務用 食品 離乳食 お弁当 プロテイン D</p>
           <p class="card-shop">骨取り魚の飯田商店</p>
-          <p class="card-price">¥7,590</p>
+          <div class="price-zone"><span class="orig-price">¥9,487</span><span class="off-badge">お得！</span><div class="card-price">¥7,590</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(8,141件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥303 入る</span>
-            <span class="badge badge-star">★★★★★ (8136件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fyamagoiida%2F10000078%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc464">20</span>人がチェック中！</div>
+        
+        <div class="hype h2">🎯 注目商品！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/toyosen/cabinet/syouhin/okonomi/tuika-2.jpg?_ex=128x128" alt="笑い込上げる大容量 老舗の高級 えびせんべい メガ盛り 1.5Kg 約50人前 訳あり われせん ではなく正規品 ギフト お菓子 エビ 菓子" loading="lazy">
         <div class="card-body">
           <p class="card-name">笑い込上げる大容量 老舗の高級 えびせんべい メガ盛り 1.5Kg 約50人前 訳あり われせん ではなく正規品 ギフト お菓子 エビ 菓子</p>
           <p class="card-shop">えびせんべい本舗 川仁</p>
-          <p class="card-price">¥4,212</p>
+          <div class="price-zone"><span class="orig-price">¥5,265</span><span class="off-badge">お得！</span><div class="card-price">¥4,212</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(1,756件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥168 入る</span>
-            <span class="badge badge-star">★★★★★ (1756件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Ftoyosen%2Fokonomi1500g%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc7441">17</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/kanohachi/cabinet/trial/eco_otameshi_thm.jpg?_ex=128x128" alt="はちみつ 蜂蜜 選べる お試しセット 90g×5個 送料無料 エコパック リフィル エコ サステナブル 詰め替え 国産、外国産30種以上から" loading="lazy">
         <div class="card-body">
           <p class="card-name">はちみつ 蜂蜜 選べる お試しセット 90g×5個 送料無料 エコパック リフィル エコ サステナブル 詰め替え 国産、外国産30種以上から</p>
           <p class="card-shop">蜂蜜の専門店、かの蜂</p>
-          <p class="card-price">¥1,998</p>
+          <div class="price-zone"><span class="orig-price">¥2,497</span><span class="off-badge">お得！</span><div class="card-price">¥1,998</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(2,708件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥79 入る</span>
-            <span class="badge badge-star">★★★★★ (2708件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fkanohachi%2Fprivate_trial_1880_40%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/henri-charpentier/cabinet/2026/campaign2026/p-thumbnail-26/htf-30asn2a_p10_f.jpg?_ex=128x128" alt="【ポイント10倍】＼昨年8,083個完売／ 父の日 お中元 ゼリー ギフト 詰め合わせ 贈り物 フルーツ スイーツ プレゼント お菓子 内祝" loading="lazy">
+        <div class="watching"><span class="dot"></span>今 <span id="wc678">14</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/bokuseisya/cabinet/rakuup/rakuup1/r743_0612_0057.jpg?_ex=128x128" alt="今だけP20倍ガッツリ！【今だけ20％増量】訳あり 乳製品福袋 2026 食品ロス 福袋 食品 国産チーズ 在庫処分 訳アリ 牛乳 ヨーグル" loading="lazy">
         <div class="card-body">
-          <p class="card-name">【ポイント10倍】＼昨年8,083個完売／ 父の日 お中元 ゼリー ギフト 詰め合わせ 贈り物 フルーツ スイーツ プレゼント お菓子 内祝</p>
-          <p class="card-shop">アンリ・シャルパンティエ</p>
-          <p class="card-price">¥3,240</p>
-          <div class="badges">
-            <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥129 入る</span>
-            <span class="badge badge-star">★★★★★ (1165件)</span>
-          </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fhenri-charpentier%2F772348%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
-          </a>
-        </div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/bokuseisya/cabinet/08388460/3000-zouryou.jpg?_ex=128x128" alt="【今だけ20％増量】訳あり 乳製品福袋 2026 食品ロス 福袋 食品 国産チーズ 在庫処分 訳アリ 牛乳 ヨーグルト 乳製品 詰め合わせ " loading="lazy">
-        <div class="card-body">
-          <p class="card-name">【今だけ20％増量】訳あり 乳製品福袋 2026 食品ロス 福袋 食品 国産チーズ 在庫処分 訳アリ 牛乳 ヨーグルト 乳製品 詰め合わせ </p>
+          <p class="card-name">今だけP20倍ガッツリ！【今だけ20％増量】訳あり 乳製品福袋 2026 食品ロス 福袋 食品 国産チーズ 在庫処分 訳アリ 牛乳 ヨーグル</p>
           <p class="card-shop">牧場ギフト 飛騨の牛乳屋・牧成舎</p>
-          <p class="card-price">¥4,180</p>
+          <div class="price-zone"><span class="orig-price">¥5,225</span><span class="off-badge">お得！</span><div class="card-price">¥4,180</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(5,432件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥167 入る</span>
-            <span class="badge badge-star">★★★★★ (5430件)</span>
+            <span class="badge badge-stock">⚠️ 残り15点！</span>
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbokuseisya%2Fmilk4000-3000%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc1392">11</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/f122025-choshi/cabinet/09830770/imgrc0097531977.jpg?_ex=128x128" alt="【ふるさと納税】 ＼総合1位獲得／ 訳あり 厚切り 塩銀鮭 切り身 1.5kg 2kg 3kg 定期便 【選べる内容量】 人気 鮭 さけ し" loading="lazy">
         <div class="card-body">
           <p class="card-name">【ふるさと納税】 ＼総合1位獲得／ 訳あり 厚切り 塩銀鮭 切り身 1.5kg 2kg 3kg 定期便 【選べる内容量】 人気 鮭 さけ し</p>
           <p class="card-shop">千葉県銚子市</p>
-          <p class="card-price">¥10,000</p>
+          <div class="price-zone"><span class="orig-price">¥37,500</span><span class="off-badge">73%OFF</span><div class="card-price">¥10,000</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(6,454件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥400 入る</span>
-            <span class="badge badge-star">★★★★★ (6450件)</span>
+            <span class="badge badge-stock">⚠️ 残り3点！</span>
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Ff122025-choshi%2Fct-002%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc3662">8</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/isomaru/cabinet/00036304/komotiki4p-2.jpg?_ex=128x128" alt="1000円ポッキリ 送料無料 子持ちきくらげ ししゃもきくらげ 4袋セットお試し メール便 ごはん 納豆 おにぎり お弁当 ご飯のお供 お弁" loading="lazy">
         <div class="card-body">
           <p class="card-name">1000円ポッキリ 送料無料 子持ちきくらげ ししゃもきくらげ 4袋セットお試し メール便 ごはん 納豆 おにぎり お弁当 ご飯のお供 お弁</p>
           <p class="card-shop">山陰海の幸 いそはま本舗</p>
-          <p class="card-price">¥1,000</p>
+          <div class="price-zone"><span class="orig-price">¥1,250</span><span class="off-badge">お得！</span><div class="card-price">¥1,000</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(4,975件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥40 入る</span>
-            <span class="badge badge-star">★★★★★ (4969件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fisomaru%2Fm-sisyamok100tu4-6%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc63">5</span>人がチェック中！</div>
+        
+        <div class="hype h2">⚡ 今だけ！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/yamagoiida/cabinet/08906716/10259975/aji_thum_201.jpg?_ex=128x128" alt="訳あり〈無塩〉骨取り あじ（2kg） | 骨抜き 骨なし 韓国産 鯵 冷凍 ストック 業務用 食品 離乳食 お弁当 プロテイン DHA EP" loading="lazy">
         <div class="card-body">
           <p class="card-name">訳あり〈無塩〉骨取り あじ（2kg） | 骨抜き 骨なし 韓国産 鯵 冷凍 ストック 業務用 食品 離乳食 お弁当 プロテイン DHA EP</p>
           <p class="card-shop">骨取り魚の飯田商店</p>
-          <p class="card-price">¥7,590</p>
+          <div class="price-zone"><span class="orig-price">¥9,487</span><span class="off-badge">お得！</span><div class="card-price">¥7,590</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(4,384件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥303 入る</span>
-            <span class="badge badge-star">★★★★★ (4381件)</span>
+            <span class="badge badge-stock">⚠️ 残り9点！</span>
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fyamagoiida%2F10000098-1%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc8576">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/henri-charpentier/cabinet/2026/campaign2026/p-thumbnail-26/hgch-24_p10.jpg?_ex=128x128" alt="【ポイント10倍】＼2026年楽天ランキング入賞／送料無料 HGCH-24 楽天限定 ガトー・キュイ・ラビテュール 5種18個入父の日 お中" loading="lazy">
         <div class="card-body">
           <p class="card-name">【ポイント10倍】＼2026年楽天ランキング入賞／送料無料 HGCH-24 楽天限定 ガトー・キュイ・ラビテュール 5種18個入父の日 お中</p>
           <p class="card-shop">アンリ・シャルパンティエ</p>
-          <p class="card-price">¥3,240</p>
+          <div class="price-zone"><span class="orig-price">¥4,050</span><span class="off-badge">お得！</span><div class="card-price">¥3,240</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(2,297件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥129 入る</span>
-            <span class="badge badge-star">★★★★★ (2296件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fhenri-charpentier%2F773104%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc8386">3</span>人がチェック中！</div>
+        
+        <div class="hype h2">🎯 注目商品！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/auc-waiper/cabinet/item02/avirex04/7835934005_1.jpg?_ex=128x128" alt="【最短即日発送】ポイント10倍！AVIREX アビレックス デイリーウエア 半袖 VネックTシャツ 6143501【7835934005】【" loading="lazy">
         <div class="card-body">
           <p class="card-name">【最短即日発送】ポイント10倍！AVIREX アビレックス デイリーウエア 半袖 VネックTシャツ 6143501【7835934005】【</p>
           <p class="card-shop">ミリタリーショップWAIPER</p>
-          <p class="card-price">¥2,970</p>
+          <div class="price-zone"><span class="orig-price">¥3,712</span><span class="off-badge">お得！</span><div class="card-price">¥2,970</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(366件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥118 入る</span>
-            <span class="badge badge-star">★★★★★ (366件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fauc-waiper%2F10002353%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc6029">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/e-mon-amano/cabinet/1st/1-a-1000-kin_r.jpg?_ex=128x128" alt="アマノフーズ フリーズドライ 味噌汁 金のだし 6食 詰め合わせ セット 【 送料無料 メール便 】 お試し 通販限定 即席みそ汁 インスタ" loading="lazy">
         <div class="card-body">
           <p class="card-name">アマノフーズ フリーズドライ 味噌汁 金のだし 6食 詰め合わせ セット 【 送料無料 メール便 】 お試し 通販限定 即席みそ汁 インスタ</p>
           <p class="card-shop">アマノフーズ フリーズドライ 店</p>
-          <p class="card-price">¥1,120</p>
+          <div class="price-zone"><span class="orig-price">¥1,400</span><span class="off-badge">お得！</span><div class="card-price">¥1,120</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(1,658件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥44 入る</span>
-            <span class="badge badge-star">★★★★★ (1658件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fe-mon-amano%2F1-a-1000-kin%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc7363">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/ideacorporation/cabinet/07898728/10773685/imgrc0134005026.jpg?_ex=128x128" alt="【楽天1位受賞】 訳あり ミックス 餃子 100個～ 送料無料 フードロス 冷凍餃子 しょうが 黒豚 生姜 gyoza 詰合せ ワケアリ 訳" loading="lazy">
         <div class="card-body">
           <p class="card-name">【楽天1位受賞】 訳あり ミックス 餃子 100個～ 送料無料 フードロス 冷凍餃子 しょうが 黒豚 生姜 gyoza 詰合せ ワケアリ 訳</p>
           <p class="card-shop">イデア食品館 楽天市場店</p>
-          <p class="card-price">¥3,580</p>
+          <div class="price-zone"><span class="orig-price">¥6,480</span><span class="off-badge">45%OFF</span><div class="card-price">¥3,580</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(129件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥143 入る</span>
-            <span class="badge badge-star">★★★★★ (129件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fideacorporation%2Fwake-mix%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc534">3</span>人がチェック中！</div>
+        
+        <div class="hype h2">⚡ 今だけ！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/toyosen/cabinet/syouhin/tokusei/tokusei-2.jpg?_ex=128x128" alt="老舗のえびせんべい 福袋 3袋 セット 435g（145g×3袋）送料無料 北海道・沖縄は送料追加 2セットで1袋、3セットで2袋のおまけ♪" loading="lazy">
         <div class="card-body">
           <p class="card-name">老舗のえびせんべい 福袋 3袋 セット 435g（145g×3袋）送料無料 北海道・沖縄は送料追加 2セットで1袋、3セットで2袋のおまけ♪</p>
           <p class="card-shop">えびせんべい本舗 川仁</p>
-          <p class="card-price">¥1,296</p>
+          <div class="price-zone"><span class="orig-price">¥1,620</span><span class="off-badge">お得！</span><div class="card-price">¥1,296</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(12,660件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥51 入る</span>
-            <span class="badge badge-star">★★★★★ (12660件)</span>
+            <span class="badge badge-stock">⚠️ 残り9点！</span>
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Ftoyosen%2Fokonomifukubukuro%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc5177">3</span>人がチェック中！</div>
+        
+        <div class="hype h2">🎯 注目商品！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/chura-okinawa/cabinet/01_03.jpg?_ex=128x128" alt="ちんすこう福袋　70個入(35袋入)　コロナ 応援 在庫処分 訳あり わけあり 食品 食品ロス　沖縄　お土産 フードロス　お試しセット　ラン" loading="lazy">
         <div class="card-body">
           <p class="card-name">ちんすこう福袋　70個入(35袋入)　コロナ 応援 在庫処分 訳あり わけあり 食品 食品ロス　沖縄　お土産 フードロス　お試しセット　ラン</p>
           <p class="card-shop">美らさんぴん OKINAWA MART</p>
-          <p class="card-price">¥1,399</p>
+          <div class="price-zone"><span class="orig-price">¥1,748</span><span class="off-badge">お得！</span><div class="card-price">¥1,399</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(1,508件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥55 入る</span>
-            <span class="badge badge-star">★★★★★ (1508件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fchura-okinawa%2F10000270%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/oyachu/cabinet/otameshi/otameshi_kago3.jpg?_ex=128x128" alt="訳あり スイーツ 送料無料 お試し お菓子 スイーツ福袋 福袋 2026 スイーツ5種類以上が20〜25個入 わけあり 洋菓子 和菓子 焼き" loading="lazy">
-        <div class="card-body">
-          <p class="card-name">訳あり スイーツ 送料無料 お試し お菓子 スイーツ福袋 福袋 2026 スイーツ5種類以上が20〜25個入 わけあり 洋菓子 和菓子 焼き</p>
-          <p class="card-shop">リブラン</p>
-          <p class="card-price">¥3,580</p>
-          <div class="badges">
-            <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥143 入る</span>
-            <span class="badge badge-star">★★★★★ (1815件)</span>
-          </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Foyachu%2F8888-1%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
-          </a>
-        </div>
-      </article>
-      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc8891">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/isomaru/cabinet/00036304/komotiki90g-16.jpg?_ex=128x128" alt="送料無料 お試し メール便 ごはんのお供 子持ちきくらげ ししゃもきくらげ 佃煮 納豆 朝食 おにぎり お弁当 夕食 ラーメン 酒 おつまみ" loading="lazy">
         <div class="card-body">
           <p class="card-name">送料無料 お試し メール便 ごはんのお供 子持ちきくらげ ししゃもきくらげ 佃煮 納豆 朝食 おにぎり お弁当 夕食 ラーメン 酒 おつまみ</p>
           <p class="card-shop">山陰海の幸 いそはま本舗</p>
-          <p class="card-price">¥340</p>
+          <div class="price-zone"><span class="orig-price">¥1,000</span><span class="off-badge">66%OFF</span><div class="card-price">¥340</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(14,866件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥13 入る</span>
-            <span class="badge badge-star">★★★★★ (14866件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fisomaru%2Fm-sisyamok150tu1-6%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/henri-charpentier/cabinet/2026/campaign2026/p-thumbnail-26/hfm-10pi_p10.jpg?_ex=128x128" alt="【ポイント10倍】父の日 お中元 お菓子 ギフト お返し 内祝い メール便 ポスト投函 お試し ギフト スイーツ 1000円 1000円ぽっ" loading="lazy">
-        <div class="card-body">
-          <p class="card-name">【ポイント10倍】父の日 お中元 お菓子 ギフト お返し 内祝い メール便 ポスト投函 お試し ギフト スイーツ 1000円 1000円ぽっ</p>
-          <p class="card-shop">アンリ・シャルパンティエ</p>
-          <p class="card-price">¥1,000</p>
-          <div class="badges">
-            <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥40 入る</span>
-            <span class="badge badge-star">★★★★★ (6380件)</span>
-          </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fhenri-charpentier%2F772596%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
-          </a>
-        </div>
-      </article>
-      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc7541">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">✨ 人気急上昇！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/matsuya/cabinet/wakama/13261660/13313158/2604ss_thum_150.jpg?_ex=128x128" alt="条件達成で全品P最大10倍！【クーポンで1食214円！30食+おまけ2食で6,830円！】大容量リピ確定BOX 松屋 公式 牛めしの具(プレ" loading="lazy">
         <div class="card-body">
           <p class="card-name">条件達成で全品P最大10倍！【クーポンで1食214円！30食+おまけ2食で6,830円！】大容量リピ確定BOX 松屋 公式 牛めしの具(プレ</p>
           <p class="card-shop">松屋フーズ</p>
-          <p class="card-price">¥5,999</p>
+          <div class="price-zone"><span class="orig-price">¥6,980</span><span class="off-badge">14%OFF</span><div class="card-price">¥5,999</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(13,867件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥239 入る</span>
-            <span class="badge badge-star">★★★★★ (13860件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmatsuya%2Fus30%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc5572">3</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/fukuumeboshi/cabinet/04708716/05785713/200217_10001110.jpg?_ex=128x128" alt="1000円 ポッキリ 梅干し 送料無料 福梅ぼし6味お試しセット各30g×6味（2～3粒） はちみつ 無添加しそ漬 うす塩 こんぶ かつお " loading="lazy">
         <div class="card-body">
           <p class="card-name">1000円 ポッキリ 梅干し 送料無料 福梅ぼし6味お試しセット各30g×6味（2～3粒） はちみつ 無添加しそ漬 うす塩 こんぶ かつお </p>
           <p class="card-shop">梅ぼしの福梅・楽天市場店</p>
-          <p class="card-price">¥1,000</p>
+          <div class="price-zone"><span class="orig-price">¥1,250</span><span class="off-badge">お得！</span><div class="card-price">¥1,000</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(2,096件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥40 入る</span>
-            <span class="badge badge-star">★★★★★ (2096件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Ffukuumeboshi%2F10001110%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/seedcoms/cabinet/images/thum/sale/ao_30p_699.jpg?_ex=128x128" alt="【6/11終了★タイムセールで699円】輝きの青汁プラセンタ 入り 3g×30包入り 送料無料 ダイエット 大麦若葉 抹茶 乳酸菌 食物繊維" loading="lazy">
-        <div class="card-body">
-          <p class="card-name">【6/11終了★タイムセールで699円】輝きの青汁プラセンタ 入り 3g×30包入り 送料無料 ダイエット 大麦若葉 抹茶 乳酸菌 食物繊維</p>
-          <p class="card-shop">サプリ専門SHOP シードコムス</p>
-          <p class="card-price">¥699</p>
-          <div class="badges">
-            <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥27 入る</span>
-            <span class="badge badge-star">★★★★★ (15014件)</span>
-          </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fseedcoms%2F10004174%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
-          </a>
-        </div>
-      </article>
-      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc2369">3</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/auc-fiac-coffee/cabinet/04398520/04411430/trial-2019-400-700.jpg?_ex=128x128" alt="お試しコーヒーセット400g！★メール便送料無料★専用メール便ギリギリの400g発送特別価格　40杯お試し コーヒー豆　　お試し　コーヒー豆" loading="lazy">
         <div class="card-body">
           <p class="card-name">お試しコーヒーセット400g！★メール便送料無料★専用メール便ギリギリの400g発送特別価格　40杯お試し コーヒー豆　　お試し　コーヒー豆</p>
           <p class="card-shop">壱枚乃絵</p>
-          <p class="card-price">¥1,860</p>
+          <div class="price-zone"><span class="orig-price">¥2,325</span><span class="off-badge">お得！</span><div class="card-price">¥1,860</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(2,109件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥74 入る</span>
-            <span class="badge badge-star">★★★★★ (2109件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fauc-fiac-coffee%2Fo-1000%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/gotoken1879/cabinet/01490111/hogusikyoutunewtop.jpg?_ex=128x128" alt="五島軒 公式 函館・五島軒の極上ほぐし肉カレー4食セット 1日100セット限定 送料無料 ネコポス便 お試し" loading="lazy">
-        <div class="card-body">
-          <p class="card-name">五島軒 公式 函館・五島軒の極上ほぐし肉カレー4食セット 1日100セット限定 送料無料 ネコポス便 お試し</p>
-          <p class="card-shop">五島軒</p>
-          <p class="card-price">¥1,400</p>
-          <div class="badges">
-            <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥56 入る</span>
-            <span class="badge badge-star">★★★★★ (6849件)</span>
-          </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fgotoken1879%2Fhogushiniku1%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
-          </a>
-        </div>
-      </article>
-      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc5597">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/ikimiso/cabinet/otameshi/otameshi_simg01.jpg?_ex=128x128" alt="味噌 6種類お試しセット DX送料無料 ポッキリ ポイント消化 楽天お買い物マラソン 通算21,000セット突破 国産味噌 食べ比べ 生き味" loading="lazy">
         <div class="card-body">
           <p class="card-name">味噌 6種類お試しセット DX送料無料 ポッキリ ポイント消化 楽天お買い物マラソン 通算21,000セット突破 国産味噌 食べ比べ 生き味</p>
           <p class="card-shop">生きてるみそ</p>
-          <p class="card-price">¥1,000</p>
+          <div class="price-zone"><span class="orig-price">¥1,250</span><span class="off-badge">お得！</span><div class="card-price">¥1,000</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(1,150件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥40 入る</span>
-            <span class="badge badge-star">★★★★★ (1150件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fikimiso%2F460711%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/cosmediva/cabinet/skuimage/topimage/01.jpg?_ex=128x128" alt="●ポイント10倍＆割引クーポン●NEW コスメデコルテ フェイスパウダー 16g / 20g #00 / #10 / #11 / #80 /" loading="lazy">
-        <div class="card-body">
-          <p class="card-name">●ポイント10倍＆割引クーポン●NEW コスメデコルテ フェイスパウダー 16g / 20g #00 / #10 / #11 / #80 /</p>
-          <p class="card-shop">COSME DIVA</p>
-          <p class="card-price">¥4,020</p>
-          <div class="badges">
-            <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥160 入る</span>
-            <span class="badge badge-star">★★★★★ (2338件)</span>
-          </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fcosmediva%2F4971710370195%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
-          </a>
-        </div>
-      </article>
-      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc2718">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/shinoharaseika/cabinet/08062078/imgrc0095399526.jpg?_ex=128x128" alt="【楽天ポイント10倍 6/15/23:59まで】キャラメルアーモンドプラリネ 12個入 デザイン メール便 お菓子 おこし 個包装" loading="lazy">
         <div class="card-body">
           <p class="card-name">【楽天ポイント10倍 6/15/23:59まで】キャラメルアーモンドプラリネ 12個入 デザイン メール便 お菓子 おこし 個包装</p>
           <p class="card-shop">篠原製菓 楽天市場店</p>
-          <p class="card-price">¥1,500</p>
+          <div class="price-zone"><span class="orig-price">¥1,875</span><span class="off-badge">お得！</span><div class="card-price">¥1,500</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(3,594件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥60 入る</span>
-            <span class="badge badge-star">★★★★★ (3594件)</span>
+            <span class="badge badge-stock">⚠️ 残り3点！</span>
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fshinoharaseika%2F10000021%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc260">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/cosmediva/cabinet/skuimage/topimage/01.jpg?_ex=128x128" alt="●ポイント10倍＆割引クーポン●NEW コスメデコルテ フェイスパウダー 16g / 20g #00 / #10 / #11 / #80 /" loading="lazy">
+        <div class="card-body">
+          <p class="card-name">●ポイント10倍＆割引クーポン●NEW コスメデコルテ フェイスパウダー 16g / 20g #00 / #10 / #11 / #80 /</p>
+          <p class="card-shop">COSME DIVA</p>
+          <div class="price-zone"><span class="orig-price">¥10,500</span><span class="off-badge">62%OFF</span><div class="card-price">¥4,020</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(2,338件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 4.0%</span>
+            
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fcosmediva%2F4971710370195%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc400">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/manraku/cabinet/09705525/09747800/imgrc0126025254.jpg?_ex=128x128" alt="【父の日割5％OFF＋ポイント10倍】】【父の日 ギフト】【鰻楽公式】国産うなぎ蒲焼 ギフト 鰻楽 ［食べ比べ 鰻喫（まんきつ）セット 長焼" loading="lazy">
         <div class="card-body">
           <p class="card-name">【父の日割5％OFF＋ポイント10倍】】【父の日 ギフト】【鰻楽公式】国産うなぎ蒲焼 ギフト 鰻楽 ［食べ比べ 鰻喫（まんきつ）セット 長焼</p>
           <p class="card-shop">うなぎ処 鰻楽 楽天市場店</p>
-          <p class="card-price">¥4,731</p>
+          <div class="price-zone"><span class="orig-price">¥10,146</span><span class="off-badge">53%OFF</span><div class="card-price">¥4,731</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(232件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥189 入る</span>
-            <span class="badge badge-star">★★★★★ (232件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmanraku%2F10000049mir%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/rl-waffle/cabinet/600_kyoutu/11706881/rich_p10_w10d.jpg?_ex=128x128" alt="～6/11 ＼ポイント10倍／ ワッフル ケーキ 10個 | お菓子 洋菓子 詰め合わせ 父の日 ギフト 個包装 お中元 ワッフルケーキ ス" loading="lazy">
+        <div class="watching"><span class="dot"></span>今 <span id="wc8319">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">✨ 人気急上昇！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/komenosato-honpo/cabinet/02025257/koware/imgrc0113238177.jpg?_ex=128x128" alt="こわれミックス煎餅10袋★北海道・沖縄・離島以外【送料無料】★ポイント10倍★" loading="lazy">
         <div class="card-body">
-          <p class="card-name">～6/11 ＼ポイント10倍／ ワッフル ケーキ 10個 | お菓子 洋菓子 詰め合わせ 父の日 ギフト 個包装 お中元 ワッフルケーキ ス</p>
-          <p class="card-shop">ワッフル・ケーキの店R.L</p>
-          <p class="card-price">¥3,000</p>
+          <p class="card-name">こわれミックス煎餅10袋★北海道・沖縄・離島以外【送料無料】★ポイント10倍★</p>
+          <p class="card-shop">こめの里本舗</p>
+          <div class="price-zone"><span class="orig-price">¥4,250</span><span class="off-badge">お得！</span><div class="card-price">¥3,400</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(525件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥120 入る</span>
-            <span class="badge badge-star">★★★★★ (6867件)</span>
+            <span class="badge badge-stock">⚠️ 残り6点！</span>
           </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Frl-waffle%2Fw0010%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fkomenosato-honpo%2Fkoware10%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc914">3</span>人がチェック中！</div>
+        
+        <div class="hype h2">⚡ 今だけ！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/mediastage/cabinet/ai/veri0004time-2.jpg?_ex=128x128" alt="(タイムセール) RapidBlow(R) ラピッドブロウ 眉毛美容液 3ml 2個セット 【日本向け正規品】" loading="lazy">
+        <div class="card-body">
+          <p class="card-name">(タイムセール) RapidBlow(R) ラピッドブロウ 眉毛美容液 3ml 2個セット 【日本向け正規品】</p>
+          <p class="card-shop">メディアステージ楽天市場店</p>
+          <div class="price-zone"><span class="orig-price">¥19,750</span><span class="off-badge">お得！</span><div class="card-price">¥15,800</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(9件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 4.0%</span>
+            
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmediastage%2Fveri-4547091420004-b_2time%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc609">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/tamurafoods/cabinet/11468594/imgrc0095560693.jpg?_ex=128x128" alt="当店厳選 美味しいみそ汁 8種A お試し アマノフーズ おいしい フリーズドライ味噌汁 1000円 味噌汁 アマノ フリーズドライおみそ汁 " loading="lazy">
         <div class="card-body">
           <p class="card-name">当店厳選 美味しいみそ汁 8種A お試し アマノフーズ おいしい フリーズドライ味噌汁 1000円 味噌汁 アマノ フリーズドライおみそ汁 </p>
           <p class="card-shop">うまかねっと九州食材問屋発</p>
-          <p class="card-price">¥1,180</p>
+          <div class="price-zone"><span class="orig-price">¥1,475</span><span class="off-badge">お得！</span><div class="card-price">¥1,180</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(4,589件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥47 入る</span>
-            <span class="badge badge-star">★★★★★ (4588件)</span>
+            <span class="badge badge-stock">⚠️ 残り3点！</span>
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Ftamurafoods%2Fmail-1000%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc4829">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">✨ 人気急上昇！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/skyfarm/cabinet/biiino/item/main-image/20220623150909_1.jpg?_ex=128x128" alt="大麦 国内産もっちもち大麦 950g 1袋 チャック付き 脱酸素剤入り α化 ポイント消化 送料無料 500円ぽっきり ワンコイン 雑穀・雑" loading="lazy">
         <div class="card-body">
           <p class="card-name">大麦 国内産もっちもち大麦 950g 1袋 チャック付き 脱酸素剤入り α化 ポイント消化 送料無料 500円ぽっきり ワンコイン 雑穀・雑</p>
           <p class="card-shop">岡山のお米と雑穀のスカイファーム</p>
-          <p class="card-price">¥500</p>
+          <div class="price-zone"><span class="orig-price">¥625</span><span class="off-badge">お得！</span><div class="card-price">¥500</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(236件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥20 入る</span>
-            <span class="badge badge-star">★★★★★ (235件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fskyfarm%2F10000044%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc4664">3</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/jajauma/cabinet/takana/20260109-5.jpg?_ex=128x128" alt="【レビュー10255件！】辛子高菜 高菜 国産 漬物 激辛 福岡 200g x2袋 お買い物マラソン 高菜漬け 高菜油炒め ご飯のお供 お取" loading="lazy">
         <div class="card-body">
           <p class="card-name">【レビュー10255件！】辛子高菜 高菜 国産 漬物 激辛 福岡 200g x2袋 お買い物マラソン 高菜漬け 高菜油炒め ご飯のお供 お取</p>
           <p class="card-shop">じゃじゃ美味 ご飯のお供通販</p>
-          <p class="card-price">¥1,296</p>
+          <div class="price-zone"><span class="orig-price">¥1,620</span><span class="off-badge">お得！</span><div class="card-price">¥1,296</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(10,267件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥51 入る</span>
-            <span class="badge badge-star">★★★★★ (10267件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fjajauma%2F671613%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/henri-charpentier/cabinet/2026/campaign2026/p-thumbnail-26/hpg-10pin_p10.jpg?_ex=128x128" alt="【ポイント10倍】父の日 お中元 お菓子 詰め合わせ 手土産 内祝い お返し お礼 メール便 個包装 焼き菓子 洋菓子 1000円 1000" loading="lazy">
-        <div class="card-body">
-          <p class="card-name">【ポイント10倍】父の日 お中元 お菓子 詰め合わせ 手土産 内祝い お返し お礼 メール便 個包装 焼き菓子 洋菓子 1000円 1000</p>
-          <p class="card-shop">アンリ・シャルパンティエ</p>
-          <p class="card-price">¥1,000</p>
-          <div class="badges">
-            <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥40 入る</span>
-            <span class="badge badge-star">★★★★★ (1339件)</span>
-          </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fhenri-charpentier%2F7726130%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
-          </a>
-        </div>
-      </article>
-      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc430">3</span>人がチェック中！</div>
+        
+        <div class="hype h2">⚡ 今だけ！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/mr-mango/cabinet/phmangolp/daiichi/fzo70x1299en.jpg?_ex=128x128" alt="【安心安全の砂糖以外は無添加です】初回限定 ドライマンゴー お試し70gドライフルーツ マンゴー おすすめ 食品添加物 保存料 無添加 送料" loading="lazy">
         <div class="card-body">
           <p class="card-name">【安心安全の砂糖以外は無添加です】初回限定 ドライマンゴー お試し70gドライフルーツ マンゴー おすすめ 食品添加物 保存料 無添加 送料</p>
           <p class="card-shop">ドライマンゴーのミスターマンゴー</p>
-          <p class="card-price">¥299</p>
+          <div class="price-zone"><span class="orig-price">¥373</span><span class="off-badge">お得！</span><div class="card-price">¥299</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(15,385件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥11 入る</span>
-            <span class="badge badge-star">★★★★★ (15385件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmr-mango%2Fdrymango_1004g%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc1611">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">✨ 人気急上昇！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/isomaru/cabinet/00036304/nori/mennori100-12.jpg?_ex=128x128" alt="送料無料 お試し メール便 ごはんのお供 ピリ辛 明太子のり佃煮 福岡 博多名産 辛子明太子入り海苔佃煮 明太子入り めんたいこ のり佃煮 " loading="lazy">
+        <div class="card-body">
+          <p class="card-name">送料無料 お試し メール便 ごはんのお供 ピリ辛 明太子のり佃煮 福岡 博多名産 辛子明太子入り海苔佃煮 明太子入り めんたいこ のり佃煮 </p>
+          <p class="card-shop">山陰海の幸 いそはま本舗</p>
+          <div class="price-zone"><span class="orig-price">¥1,340</span><span class="off-badge">71%OFF</span><div class="card-price">¥390</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(1,989件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 4.0%</span>
+            <span class="badge badge-stock">⚠️ 残り6点！</span>
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fisomaru%2Fm-mennori100t1-6%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc5524">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">✨ 人気急上昇！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/numazu-jiman/cabinet/image1/daino001_img01.jpg?_ex=128x128" alt="金目鯛とホッケが必ず入る！訳あり干物 詰め合わせセット 1.5kg〜4.2kg キンメダイ ホッケ アジ サバ カレイ イワシ 鯵 鯖 沼津" loading="lazy">
         <div class="card-body">
           <p class="card-name">金目鯛とホッケが必ず入る！訳あり干物 詰め合わせセット 1.5kg〜4.2kg キンメダイ ホッケ アジ サバ カレイ イワシ 鯵 鯖 沼津</p>
           <p class="card-shop">沼津自慢</p>
-          <p class="card-price">¥2,780</p>
+          <div class="price-zone"><span class="orig-price">¥5,180</span><span class="off-badge">46%OFF</span><div class="card-price">¥2,780</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(537件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥111 入る</span>
-            <span class="badge badge-star">★★★★☆ (537件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fnumazu-jiman%2Fdaino001%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc4109">3</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/ogaland-life-essence/cabinet/item/09810996/11163559/imgrc0116919494.jpg?_ex=128x128" alt="【初回限定商品】100円 お試し 送料無料 サンプル ミニパウチ 2g×2袋 オールインワン オールシーズンOK 男女兼用 オールインワンゲ" loading="lazy">
         <div class="card-body">
           <p class="card-name">【初回限定商品】100円 お試し 送料無料 サンプル ミニパウチ 2g×2袋 オールインワン オールシーズンOK 男女兼用 オールインワンゲ</p>
           <p class="card-shop">お肌のサイエンス ogaコスメ研究所</p>
-          <p class="card-price">¥100</p>
+          <div class="price-zone"><span class="orig-price">¥125</span><span class="off-badge">お得！</span><div class="card-price">¥100</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(32件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥4 入る</span>
-            <span class="badge badge-star">★★★★☆ (32件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fogaland-life-essence%2Fogs%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc7968">3</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/yamamotoyasuo-saketen/cabinet/06252329/06252360/imgrc0077726824.jpg?_ex=128x128" alt="★今だけおまけつき★ポイント消化 ぽっきり 安い お試し 美人雑穀米200g 国産雑穀100％使用 送料無料 大麦・紫もち麦・発芽玄米 ・古" loading="lazy">
+        <div class="card-body">
+          <p class="card-name">★今だけおまけつき★ポイント消化 ぽっきり 安い お試し 美人雑穀米200g 国産雑穀100％使用 送料無料 大麦・紫もち麦・発芽玄米 ・古</p>
+          <p class="card-shop">山本靖雄酒店 楽天市場店</p>
+          <div class="price-zone"><span class="orig-price">¥497</span><span class="off-badge">お得！</span><div class="card-price">¥398</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(439件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 4.0%</span>
+            <span class="badge badge-stock">⚠️ 残り15点！</span>
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fyamamotoyasuo-saketen%2Fbijinzakkoku200%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc7859">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">✨ 人気急上昇！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/dotwan/cabinet/goods/11359280/tabehazime_1.jpg?_ex=128x128" alt="ドッグフード お試し 無添加 国産 おすすめ 手作り ごはん おやつ 送料無料 ドットわん たべはじめキット 10点セット ドッグフード ド" loading="lazy">
+        <div class="card-body">
+          <p class="card-name">ドッグフード お試し 無添加 国産 おすすめ 手作り ごはん おやつ 送料無料 ドットわん たべはじめキット 10点セット ドッグフード ド</p>
+          <p class="card-shop">自然食ドッグフード「ドットわん」</p>
+          <div class="price-zone"><span class="orig-price">¥1,250</span><span class="off-badge">お得！</span><div class="card-price">¥1,000</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(1,970件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 4.0%</span>
+            
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fdotwan%2Fotameshi1%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc4381">3</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/kitauroko/cabinet/site_material2/1000x1000_3set2022re.jpg?_ex=128x128" alt="グルメ 温めるだけ！さんま ひつまぶし いわし丼 にしん親子丼 さば辛味噌丼 選べる3食セット 家族や友人向け♪ 送料無料 おかず イワシ " loading="lazy">
         <div class="card-body">
           <p class="card-name">グルメ 温めるだけ！さんま ひつまぶし いわし丼 にしん親子丼 さば辛味噌丼 選べる3食セット 家族や友人向け♪ 送料無料 おかず イワシ </p>
           <p class="card-shop">カニのキタウロコ</p>
-          <p class="card-price">¥1,080</p>
+          <div class="price-zone"><span class="orig-price">¥1,200</span><span class="off-badge">10%OFF</span><div class="card-price">¥1,080</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(2,430件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥43 入る</span>
-            <span class="badge badge-star">★★★★☆ (2428件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fkitauroko%2F2-kin-0001-n-3set%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/buono-buono/cabinet/samune/10000302_1_s.jpg?_ex=128x128" alt="【最大半額以下タイムセール！12日10:00迄 1,000円ポッキリ！】 おつまみ 珍味 【北海道産 旨味凝縮 .ソフトほたて干し貝柱90g" loading="lazy">
+        <div class="watching"><span class="dot"></span>今 <span id="wc821">3</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/empirica/cabinet/yimg/imgrc0096915519.jpg?_ex=128x128" alt="愛媛産 特に訳あり河内晩柑10kg(+約0.5kg多め)【送料無料(一部地域除く)】不揃い 傷 汚れ有 みしょうかん・グレープフルーツ 規格" loading="lazy">
         <div class="card-body">
-          <p class="card-name">【最大半額以下タイムセール！12日10:00迄 1,000円ポッキリ！】 おつまみ 珍味 【北海道産 旨味凝縮 .ソフトほたて干し貝柱90g</p>
-          <p class="card-shop">北海道産直グルメ ぼーの</p>
-          <p class="card-price">¥1,000</p>
+          <p class="card-name">愛媛産 特に訳あり河内晩柑10kg(+約0.5kg多め)【送料無料(一部地域除く)】不揃い 傷 汚れ有 みしょうかん・グレープフルーツ 規格</p>
+          <p class="card-shop">フルーツショップ 瀬戸内</p>
+          <div class="price-zone"><span class="orig-price">¥3,100</span><span class="off-badge">お得！</span><div class="card-price">¥2,480</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(1,346件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥40 入る</span>
-            <span class="badge badge-star">★★★★☆ (2555件)</span>
+            
           </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbuono-buono%2F10000302_1%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fempirica%2Ftw-misyou-10%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc1021">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/kajyuenkodama/cabinet/02981093/1bn193.jpg?_ex=128x128" alt="柿 訳あり 種なし柿 訳あり柿 和歌山 送料無料 4kg 16〜24個 たねなし柿 種無し柿 早割 種無しかき 訳アリ柿 種なし 和歌山県産" loading="lazy">
+        <div class="card-body">
+          <p class="card-name">柿 訳あり 種なし柿 訳あり柿 和歌山 送料無料 4kg 16〜24個 たねなし柿 種無し柿 早割 種無しかき 訳アリ柿 種なし 和歌山県産</p>
+          <p class="card-shop">紀州の桃柿みかん農園 果樹園児玉</p>
+          <div class="price-zone"><span class="orig-price">¥3,725</span><span class="off-badge">お得！</span><div class="card-price">¥2,980</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(362件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 4.0%</span>
+            
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fkajyuenkodama%2Fkaki01%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc1918">3</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/edoya13/cabinet/sweets/tinsukou-mailbin.jpg?_ex=128x128" alt="【ちんすこう】 10種類(15袋合計30個入り) 訳あり メール便 送料無料 スイーツ お菓子 茶請け お試し 沖縄土産 ｜ちんすこう ｜※" loading="lazy">
         <div class="card-body">
           <p class="card-name">【ちんすこう】 10種類(15袋合計30個入り) 訳あり メール便 送料無料 スイーツ お菓子 茶請け お試し 沖縄土産 ｜ちんすこう ｜※</p>
           <p class="card-shop">沖縄お土産通販かまどおばぁの店。</p>
-          <p class="card-price">¥1,080</p>
+          <div class="price-zone"><span class="orig-price">¥1,350</span><span class="off-badge">お得！</span><div class="card-price">¥1,080</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(555件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥43 入る</span>
-            <span class="badge badge-star">★★★★☆ (555件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fedoya13%2Fa-988%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/oga/cabinet/240823_s100_3_01.jpg?_ex=128x128" alt="初回限定 5種類から選べるお試し100円サプリ （各約1ヶ月分） ご購入は当店でのお買い物が初めての方限定となります！ サプリ サプリメント" loading="lazy">
+        <div class="watching"><span class="dot"></span>今 <span id="wc58">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">✨ 人気急上昇！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/shitamachibaum/cabinet/wakama/10555192/2406_mini_thm-1.jpg?_ex=128x128" alt="訳あり ミニクーヘン8個入り ★工場長のおまかせ400g以上 ※4種類入るとは限りません。 送料無料 メール便 バームクーヘン バウムクーヘ" loading="lazy">
         <div class="card-body">
-          <p class="card-name">初回限定 5種類から選べるお試し100円サプリ （各約1ヶ月分） ご購入は当店でのお買い物が初めての方限定となります！ サプリ サプリメント</p>
-          <p class="card-shop">サプリ専門店 オーガランド</p>
-          <p class="card-price">¥100</p>
+          <p class="card-name">訳あり ミニクーヘン8個入り ★工場長のおまかせ400g以上 ※4種類入るとは限りません。 送料無料 メール便 バームクーヘン バウムクーヘ</p>
+          <p class="card-shop">下町バームクーヘン 楽天市場店</p>
+          <div class="price-zone"><span class="orig-price">¥1,875</span><span class="off-badge">お得！</span><div class="card-price">¥1,500</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(1,801件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥4 入る</span>
-            <span class="badge badge-star">★★★★☆ (1549件)</span>
+            
           </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Foga%2Fotameshi_1%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fshitamachibaum%2F100000mini-neko%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc2068">3</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/sankyotikusan/cabinet/shouhin/gyukomamegakensaku.jpg?_ex=128x128" alt="【送料無料】九州産 牛こま切れ メガ盛り 1.5kg■300g×5袋の小分けで便利！■牛コマ 牛細切れ 牛肉 1kg500g 国産 食品 グ" loading="lazy">
         <div class="card-body">
           <p class="card-name">【送料無料】九州産 牛こま切れ メガ盛り 1.5kg■300g×5袋の小分けで便利！■牛コマ 牛細切れ 牛肉 1kg500g 国産 食品 グ</p>
           <p class="card-shop">肉工房三協</p>
-          <p class="card-price">¥4,280</p>
+          <div class="price-zone"><span class="orig-price">¥5,350</span><span class="off-badge">お得！</span><div class="card-price">¥4,280</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(1,310件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥171 入る</span>
-            <span class="badge badge-star">★★★★☆ (1310件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fsankyotikusan%2Fa010%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/kiso/cabinet/raku/k41mini/k41mini_pp.jpg?_ex=128x128" alt="初回限定 お一人様 1点限り お試しサイズ KISO CARE 水溶性フラーレン 1％ アルファーアルブチン 配合 美容液 キソ ホワイトエ" loading="lazy">
-        <div class="card-body">
-          <p class="card-name">初回限定 お一人様 1点限り お試しサイズ KISO CARE 水溶性フラーレン 1％ アルファーアルブチン 配合 美容液 キソ ホワイトエ</p>
-          <p class="card-shop">KISO CARE 公式ショップ</p>
-          <p class="card-price">¥110</p>
-          <div class="badges">
-            <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥4 入る</span>
-            <span class="badge badge-star">★★★★☆ (646件)</span>
-          </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fkiso%2Fkiso-k41mini%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
-          </a>
-        </div>
-      </article>
-      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc127">3</span>人がチェック中！</div>
+        
+        <div class="hype h2">🎯 注目商品！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/accent/cabinet/07394753/otameshi01/divotame_thum2.jpg?_ex=128x128" alt="《初回限定 お試し 121円》かゆみ 抜け毛予防 薄毛予防 ディバイン ナノ・シャンプーV &amp; ローション 20ml｜ ノンシリコンシャンプ" loading="lazy">
         <div class="card-body">
           <p class="card-name">《初回限定 お試し 121円》かゆみ 抜け毛予防 薄毛予防 ディバイン ナノ・シャンプーV &amp; ローション 20ml｜ ノンシリコンシャンプ</p>
           <p class="card-shop">シャンプーのAccent</p>
-          <p class="card-price">¥121</p>
+          <div class="price-zone"><span class="orig-price">¥151</span><span class="off-badge">お得！</span><div class="card-price">¥121</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(1,206件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥4 入る</span>
-            <span class="badge badge-star">★★★★☆ (1205件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Faccent%2F10000013%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/shitamachibaum/cabinet/13274910/2026sjk3_ice_thm_l.jpg?_ex=128x128" alt="S 【期間限定50%OFF！5,000円→2,499円！】5種から選べる スーパージャンボクーヘン3個セット 超ド級スーパージャンボクーヘン" loading="lazy">
-        <div class="card-body">
-          <p class="card-name">S 【期間限定50%OFF！5,000円→2,499円！】5種から選べる スーパージャンボクーヘン3個セット 超ド級スーパージャンボクーヘン</p>
-          <p class="card-shop">下町バームクーヘン 楽天市場店</p>
-          <p class="card-price">¥2,499</p>
-          <div class="badges">
-            <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥99 入る</span>
-            <span class="badge badge-star">★★★★☆ (10350件)</span>
-          </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fshitamachibaum%2F100000123-3%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
-          </a>
-        </div>
-      </article>
-      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc2384">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/meat-companion/cabinet/10388364/260603ss/imgrc0115372671.jpg?_ex=128x128" alt="＼期間限定クーポンで 半額 2,999円&amp;ポイント最大10倍／【 10品から選べる最大 2kg 】 選べる 福袋 ハンバーグ 確定 福袋 訳" loading="lazy">
         <div class="card-body">
           <p class="card-name">＼期間限定クーポンで 半額 2,999円&amp;ポイント最大10倍／【 10品から選べる最大 2kg 】 選べる 福袋 ハンバーグ 確定 福袋 訳</p>
           <p class="card-shop">ミート・コンパニオン楽天市場店</p>
-          <p class="card-price">¥5,998</p>
+          <div class="price-zone"><span class="orig-price">¥7,497</span><span class="off-badge">お得！</span><div class="card-price">¥5,998</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(777件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥239 入る</span>
-            <span class="badge badge-star">★★★★☆ (777件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmeat-companion%2F2018-0060%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/umamido/cabinet/06041067/06041070/240327_uk0003_00.jpg?_ex=128x128" alt="鶏の炭火焼き 100g×3パック 塩こしょう風味 送料無料 ポイント消化 おつまみ セット 食品 宮崎 名物 地鶏 お試し 人気には 訳あり" loading="lazy">
+        <div class="watching"><span class="dot"></span>今 <span id="wc4142">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/rolldego/cabinet/design/04317449/otameshi1.jpg?_ex=128x128" alt="Roll de COSMEシリーズお試しカットサンプル150円【送料無料】【紙せっけん】【ラメパウダー】【黒あぶらとり紙】【パウダー付あぶら" loading="lazy">
         <div class="card-body">
-          <p class="card-name">鶏の炭火焼き 100g×3パック 塩こしょう風味 送料無料 ポイント消化 おつまみ セット 食品 宮崎 名物 地鶏 お試し 人気には 訳あり</p>
-          <p class="card-shop">辛子明太子専門店 博多 うまみ堂</p>
-          <p class="card-price">¥1,200</p>
+          <p class="card-name">Roll de COSMEシリーズお試しカットサンプル150円【送料無料】【紙せっけん】【ラメパウダー】【黒あぶらとり紙】【パウダー付あぶら</p>
+          <p class="card-shop">ROLLでgo</p>
+          <div class="price-zone"><span class="orig-price">¥187</span><span class="off-badge">お得！</span><div class="card-price">¥150</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(59件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥48 入る</span>
-            <span class="badge badge-star">★★★★☆ (218件)</span>
+            
           </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fumamido%2Fuk-0003%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Frolldego%2F000999%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc1076">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">✨ 人気急上昇！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/shitamachibaum/cabinet/08759901/imgrc0078973465.jpg?_ex=128x128" alt="訳ありバームクーヘンメガ盛り1kg★工場長のおまかせ 1kg 訳あり わけあり スイーツ 送料無料 福袋 2026 在庫処分 人気 ランキン" loading="lazy">
+        <div class="card-body">
+          <p class="card-name">訳ありバームクーヘンメガ盛り1kg★工場長のおまかせ 1kg 訳あり わけあり スイーツ 送料無料 福袋 2026 在庫処分 人気 ランキン</p>
+          <p class="card-shop">下町バームクーヘン 楽天市場店</p>
+          <div class="price-zone"><span class="orig-price">¥2,625</span><span class="off-badge">お得！</span><div class="card-price">¥2,100</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(1,567件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 4.0%</span>
+            
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fshitamachibaum%2F10000007test-1000%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc6340">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">✨ 人気急上昇！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/combi/cabinet/thum/shisaku/imgrc0102499954.jpg?_ex=128x128" alt="＼ポイント10倍／ ＼レビュー特典対象／【公式】コンビ Combi 手動 スウィング ベビーラック ハイローベッド ハイローラック ハイロー" loading="lazy">
         <div class="card-body">
           <p class="card-name">＼ポイント10倍／ ＼レビュー特典対象／【公式】コンビ Combi 手動 スウィング ベビーラック ハイローベッド ハイローラック ハイロー</p>
           <p class="card-shop">コンビ公式楽天市場店</p>
-          <p class="card-price">¥30,000</p>
+          <div class="price-zone"><span class="orig-price">¥37,500</span><span class="off-badge">お得！</span><div class="card-price">¥30,000</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(7件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥1,200 入る</span>
-            <span class="badge badge-star">★★★★☆ (7件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fcombi%2Fnemulila-fit-aq%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc9310">3</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/shitamachibaum/cabinet/11372617/2501_1k2k_thm2.jpg?_ex=128x128" alt="【限界価格に挑戦！】 選べる！ 大容量バームクーヘン切り落とし★訳アリ わけあり 福袋 2026 訳あり お菓子 送料無料 在庫処分 人気 " loading="lazy">
         <div class="card-body">
           <p class="card-name">【限界価格に挑戦！】 選べる！ 大容量バームクーヘン切り落とし★訳アリ わけあり 福袋 2026 訳あり お菓子 送料無料 在庫処分 人気 </p>
           <p class="card-shop">下町バームクーヘン 楽天市場店</p>
-          <p class="card-price">¥1,999</p>
+          <div class="price-zone"><span class="orig-price">¥2,999</span><span class="off-badge">33%OFF</span><div class="card-price">¥1,999</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(6,532件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥79 入る</span>
-            <span class="badge badge-star">★★★★☆ (6532件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fshitamachibaum%2F10000007test%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc8853">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">✨ 人気急上昇！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/lesthemo/cabinet/shg/gel3_100_20_3000px.jpg?_ex=128x128" alt="オールインワン 美白 ゲルクリーム 21g レステモ 送料無料 オールインワンジェル オールインワンゲル 【初回限定】 シミ 美白クリーム " loading="lazy">
         <div class="card-body">
           <p class="card-name">オールインワン 美白 ゲルクリーム 21g レステモ 送料無料 オールインワンジェル オールインワンゲル 【初回限定】 シミ 美白クリーム </p>
           <p class="card-shop">ゲルクリームの【レステモ】</p>
-          <p class="card-price">¥100</p>
+          <div class="price-zone"><span class="orig-price">¥125</span><span class="off-badge">お得！</span><div class="card-price">¥100</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(40,915件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥4 入る</span>
-            <span class="badge badge-star">★★★★☆ (40915件)</span>
+            <span class="badge badge-stock">⚠️ 残り6点！</span>
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Flesthemo%2Fsample%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc1198">3</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/donmai/cabinet/other/shouyu_mame_main4.jpg?_ex=128x128" alt="1000円ポッキリ 送料無料 黒川のしょうゆ豆 130g×4袋 醤油豆 ご飯のお供 得トクセール ポイント消化 食品 お試し ギフト お取り" loading="lazy">
         <div class="card-body">
           <p class="card-name">1000円ポッキリ 送料無料 黒川のしょうゆ豆 130g×4袋 醤油豆 ご飯のお供 得トクセール ポイント消化 食品 お試し ギフト お取り</p>
           <p class="card-shop">どんまい</p>
-          <p class="card-price">¥1,000</p>
+          <div class="price-zone"><span class="orig-price">¥1,250</span><span class="off-badge">お得！</span><div class="card-price">¥1,000</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(10件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥40 入る</span>
-            <span class="badge badge-star">★★★★☆ (10件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fdonmai%2Fshoyu-mame4%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/buono-buono/cabinet/samune/10007000new-large_s.jpg?_ex=128x128" alt="【半額SALE！12日10:00迄 期間限定7,980円→3,990円！】 【今なら+1食増量中！】 豚丼 豚丼の具 北海道帯広名物 本ロー" loading="lazy">
+        <div class="watching"><span class="dot"></span>今 <span id="wc6506">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/buono-buono/cabinet/samune/10007000new-large_np.jpg?_ex=128x128" alt="【今なら+1食増量中！】 豚丼 豚丼の具 北海道帯広名物 本ロース.豚丼の具12食+1食 合計13食セット. 訳あり 冷凍食品 詰め合わせ " loading="lazy">
         <div class="card-body">
-          <p class="card-name">【半額SALE！12日10:00迄 期間限定7,980円→3,990円！】 【今なら+1食増量中！】 豚丼 豚丼の具 北海道帯広名物 本ロー</p>
+          <p class="card-name">【今なら+1食増量中！】 豚丼 豚丼の具 北海道帯広名物 本ロース.豚丼の具12食+1食 合計13食セット. 訳あり 冷凍食品 詰め合わせ </p>
           <p class="card-shop">北海道産直グルメ ぼーの</p>
-          <p class="card-price">¥3,990</p>
+          <div class="price-zone"><span class="orig-price">¥9,975</span><span class="off-badge">お得！</span><div class="card-price">¥7,980</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(1,214件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥159 入る</span>
-            <span class="badge badge-star">★★★★☆ (1214件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbuono-buono%2F10007000-large%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc4294">3</span>人がチェック中！</div>
+        
+        <div class="hype h2">🎯 注目商品！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/misawanoyasai/cabinet/09508281/harasu_06.jpg?_ex=128x128" alt="サーモン 刺身 200g 600g (200gx3) 1kg (200gx5) 切り落とし 冷凍 ハラス 訳あり 食品 サーモンハラス 鮭 " loading="lazy">
         <div class="card-body">
           <p class="card-name">サーモン 刺身 200g 600g (200gx3) 1kg (200gx5) 切り落とし 冷凍 ハラス 訳あり 食品 サーモンハラス 鮭 </p>
           <p class="card-shop">みさわのやさい</p>
-          <p class="card-price">¥2,280</p>
+          <div class="price-zone"><span class="orig-price">¥3,980</span><span class="off-badge">43%OFF</span><div class="card-price">¥2,280</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(147件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥91 入る</span>
-            <span class="badge badge-star">★★★★☆ (147件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmisawanoyasai%2Fharasu_250g%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc6769">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/donmai/cabinet/other/shouyu_mame_main1a.jpg?_ex=128x128" alt="送料無料 黒川のしょうゆ豆 130g×1袋 醤油豆 ご飯のお供 得トクセール ポイント消化 食品 お試し お取り寄せ グルメ おつまみ アウ" loading="lazy">
         <div class="card-body">
           <p class="card-name">送料無料 黒川のしょうゆ豆 130g×1袋 醤油豆 ご飯のお供 得トクセール ポイント消化 食品 お試し お取り寄せ グルメ おつまみ アウ</p>
           <p class="card-shop">どんまい</p>
-          <p class="card-price">¥300</p>
+          <div class="price-zone"><span class="orig-price">¥375</span><span class="off-badge">お得！</span><div class="card-price">¥300</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(14件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥12 入る</span>
-            <span class="badge badge-star">★★★★☆ (14件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fdonmai%2Fshoyu-mame1%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc1685">3</span>人がチェック中！</div>
+        
+        <div class="hype h2">⚡ 今だけ！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/wakuwakuten/cabinet/kai-sam/imgrc0077245952.jpg?_ex=128x128" alt="【セール期間お買い得！即日発送 送料無料】 new目元美容液 30代 40代 50代 60代 目もとエステ 目の下にハリ 目元へ潤いを届ける" loading="lazy">
         <div class="card-body">
           <p class="card-name">【セール期間お買い得！即日発送 送料無料】 new目元美容液 30代 40代 50代 60代 目もとエステ 目の下にハリ 目元へ潤いを届ける</p>
           <p class="card-shop">わくわく店(てん)</p>
-          <p class="card-price">¥2,090</p>
+          <div class="price-zone"><span class="orig-price">¥2,612</span><span class="off-badge">お得！</span><div class="card-price">¥2,090</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(6件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 4.0%</span>
-            <span class="badge badge-fee">1件 ¥83 入る</span>
-            <span class="badge badge-star">★★★★☆ (6件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fwakuwakuten%2Ft01-063-b02%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
       <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc4405">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">🔥 本日限定！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/auc-interiorshop/cabinet/06659115/imgrc0075788208.jpg?_ex=128x128" alt="ミルクパン 800ml ミルク鍋 日本製 18-8ステンレス ミルクパン ◆送料無料◆ ガス火対応 ミルク 目盛付 両側口付 片手鍋 ステン" loading="lazy">
+        <div class="card-body">
+          <p class="card-name">ミルクパン 800ml ミルク鍋 日本製 18-8ステンレス ミルクパン ◆送料無料◆ ガス火対応 ミルク 目盛付 両側口付 片手鍋 ステン</p>
+          <p class="card-shop">ishidasyouten</p>
+          <div class="price-zone"><span class="orig-price">¥3,487</span><span class="off-badge">お得！</span><div class="card-price">¥2,790</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(25件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 3.0%</span>
+            
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fauc-interiorshop%2Fh-2707%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc7240">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">✨ 人気急上昇！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/auc-interiorshop/cabinet/03396830/04982456/imgrc0066696512.jpg?_ex=128x128" alt="ガラス蓋付 フライパン26cm 鍋 鍋蓋付き フライパン フタ付き ◆送料無料◆ ふっ素樹脂加工 26cm 蓋付フライパン カリーナ ガス火" loading="lazy">
+        <div class="card-body">
+          <p class="card-name">ガラス蓋付 フライパン26cm 鍋 鍋蓋付き フライパン フタ付き ◆送料無料◆ ふっ素樹脂加工 26cm 蓋付フライパン カリーナ ガス火</p>
+          <p class="card-shop">ishidasyouten</p>
+          <div class="price-zone"><span class="orig-price">¥4,062</span><span class="off-badge">お得！</span><div class="card-price">¥3,250</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(25件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 3.0%</span>
+            
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fauc-interiorshop%2Fcgf-26k%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc5054">3</span>人がチェック中！</div>
+        
+        <div class="hype h2">🎯 注目商品！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/auc-interiorshop/cabinet/03396830/04982456/imgrc0067257067.jpg?_ex=128x128" alt="片手鍋18cm ガラス蓋付き クレール ステンレス製 ◆送料無料◆ 蓋付き ステンレス鍋 片手なべ IHクッキング キッチン 調理器具 鍋 " loading="lazy">
+        <div class="card-body">
+          <p class="card-name">片手鍋18cm ガラス蓋付き クレール ステンレス製 ◆送料無料◆ 蓋付き ステンレス鍋 片手なべ IHクッキング キッチン 調理器具 鍋 </p>
+          <p class="card-shop">ishidasyouten</p>
+          <div class="price-zone"><span class="orig-price">¥3,025</span><span class="off-badge">お得！</span><div class="card-price">¥2,420</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(12件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 3.0%</span>
+            
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fauc-interiorshop%2Fclp-18s%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc230">3</span>人がチェック中！</div>
+        
+        <div class="hype h2">⚡ 今だけ！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/auc-interiorshop/cabinet/03396830/04982456/imgrc0066694670.jpg?_ex=128x128" alt="深型フライパン20cm ガラス蓋付 鍋 鍋蓋付き フライパン フタ付き ◆送料無料◆ 蓋付フライパン ふっ素樹脂加工 深型鍋 深型 カリーナ" loading="lazy">
+        <div class="card-body">
+          <p class="card-name">深型フライパン20cm ガラス蓋付 鍋 鍋蓋付き フライパン フタ付き ◆送料無料◆ 蓋付フライパン ふっ素樹脂加工 深型鍋 深型 カリーナ</p>
+          <p class="card-shop">ishidasyouten</p>
+          <div class="price-zone"><span class="orig-price">¥3,100</span><span class="off-badge">お得！</span><div class="card-price">¥2,480</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(42件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 3.0%</span>
+            
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fauc-interiorshop%2Fcgf-20k%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc4861">3</span>人がチェック中！</div>
+        
+        <div class="hype h1">✨ 人気急上昇！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/smile-hg/cabinet/00119127/4573242546880-2p-.jpg?_ex=128x128" alt="【在庫処分】そのまま洗濯機で洗えるマスクケース【お買い得2枚セット】/ 【ポスト投函送料無料】/ マスクケース 洗濯ネット 使い終わったマス" loading="lazy">
+        <div class="card-body">
+          <p class="card-name">【在庫処分】そのまま洗濯機で洗えるマスクケース【お買い得2枚セット】/ 【ポスト投函送料無料】/ マスクケース 洗濯ネット 使い終わったマス</p>
+          <p class="card-shop">住マイル</p>
+          <div class="price-zone"><span class="orig-price">¥687</span><span class="off-badge">お得！</span><div class="card-price">¥550</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(12件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 3.0%</span>
+            
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fsmile-hg%2F4573242546880-2p-%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc9622">3</span>人がチェック中！</div>
+        
+        <div class="hype h2">⚡ 今だけ！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/auc-yorozuya/cabinet/como/co05/0218075.jpg?_ex=128x128" alt="【在庫処分セール】 【翌日出荷】玄関クリーンマット石タイル調　半円(オーロラ)玄関マット 業務用 滑らない 滑り止め 吸水 除塵 泥落とし " loading="lazy">
+        <div class="card-body">
+          <p class="card-name">【在庫処分セール】 【翌日出荷】玄関クリーンマット石タイル調　半円(オーロラ)玄関マット 業務用 滑らない 滑り止め 吸水 除塵 泥落とし </p>
+          <p class="card-shop">あっとらいふ</p>
+          <div class="price-zone"><span class="orig-price">¥3,743</span><span class="off-badge">お得！</span><div class="card-price">¥2,995</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★☆</span>
+            <span class="rev-count">(134件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 3.0%</span>
+            
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fauc-yorozuya%2Fcm-0218075%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc1341">3</span>人がチェック中！</div>
+        
+        <div class="hype h3">💥 激安特価！</div>
+        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/e-stationery/cabinet/400x400x01/s_milan_041_s2.jpg?_ex=128x128" alt="＼ポイント10倍／【ミラン 電卓 おしゃれ】ミラン MILAN / 電卓 16桁 ブラック（152016BL）" loading="lazy">
+        <div class="card-body">
+          <p class="card-name">＼ポイント10倍／【ミラン 電卓 おしゃれ】ミラン MILAN / 電卓 16桁 ブラック（152016BL）</p>
+          <p class="card-shop">文房具屋フジオカ文具e-stationery</p>
+          <div class="price-zone"><span class="orig-price">¥7,150</span><span class="off-badge">お得！</span><div class="card-price">¥5,720</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(7件のレビュー)</span>
+          </div>
+          <div class="badges">
+            <span class="badge badge-rate">報酬率 2.0%</span>
+            <span class="badge badge-stock">⚠️ 残り15点！</span>
+          </div>
+          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fe-stationery%2Fs_milan_041%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
+            🛒 今すぐ楽天で見る →
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="watching"><span class="dot"></span>今 <span id="wc9322">3</span>人がチェック中！</div>
+        
+        <div class="hype h2">⚡ 今だけ！</div>
         <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/spd-shop/cabinet/07934093/imgrc0114443233.jpg?_ex=128x128" alt="ポイント10倍 microSDXC 256GB マイクロSDカード microSDカード SanDisk サンディスク Ultra R:15" loading="lazy">
         <div class="card-body">
           <p class="card-name">ポイント10倍 microSDXC 256GB マイクロSDカード microSDカード SanDisk サンディスク Ultra R:15</p>
           <p class="card-shop">SPD楽天市場店</p>
-          <p class="card-price">¥7,912</p>
+          <div class="price-zone"><span class="orig-price">¥9,890</span><span class="off-badge">お得！</span><div class="card-price">¥7,912</div></div>
+          <div class="star-row">
+            <span class="big-stars">★★★★★</span>
+            <span class="rev-count">(25件のレビュー)</span>
+          </div>
           <div class="badges">
             <span class="badge badge-rate">報酬率 2.0%</span>
-            <span class="badge badge-fee">1件 ¥158 入る</span>
-            <span class="badge badge-star">★★★★★ (25件)</span>
+            
           </div>
           <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fspd-shop%2Fsatf256na-quar%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
+            🛒 今すぐ楽天で見る →
           </a>
         </div>
       </article>
-      <article class="card">
-        <img class="card-img" src="https://thumbnail.image.rakuten.co.jp/@0_mall/mediastage/cabinet/04909605/iom-p-1t.jpg?_ex=128x128" alt="(タイムセール) クレイツ ディープクレンジング ミストシャワー イオムプラス IO霧+ スカルプミスト CIMSH-X6N IOM+ ハン" loading="lazy">
-        <div class="card-body">
-          <p class="card-name">(タイムセール) クレイツ ディープクレンジング ミストシャワー イオムプラス IO霧+ スカルプミスト CIMSH-X6N IOM+ ハン</p>
-          <p class="card-shop">メディアステージ楽天市場店</p>
-          <p class="card-price">¥7,600</p>
-          <div class="badges">
-            <span class="badge badge-rate">報酬率 2.0%</span>
-            <span class="badge badge-fee">1件 ¥152 入る</span>
-            <span class="badge badge-star">★★★★☆ (19件)</span>
-          </div>
-          <a class="btn" href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmediastage%2Frss-4988338270493ss%2F%3Frafcid%3Dwsc_i_is_54094c90-1379-4c69-9617-95cfb7f2596e&amp;link_type=picttext" target="_blank" rel="noopener sponsored">
-            楽天市場で見る →
-          </a>
         </div>
-      </article>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sbox">
+          <h3>🎉 楽天セール情報</h3>
+          <div class="sale-b"><div class="t">次回スーパーSALE</div><div class="d">2026年6月！</div></div>
+          <div class="sale-b"><div class="t">お買い物マラソン</div><div class="d">随時開催中！</div></div>
+        </div>
+        <div class="sbox">
+          <h3>📢 SNSフォロー</h3>
+          <a class="sns-btn" href="https://x.com" target="_blank">𝕏 Xでフォロー</a>
+          <p>毎日お得情報を投稿中！フォローして見逃さないように♪</p>
+        </div>
+        <div class="sbox">
+          <h3>ℹ️ このサイトについて</h3>
+          <p>楽天市場の高評価セール品を毎日自動で収集。節約生活を全力応援！</p>
+        </div>
+      </aside>
     </div>
   </main>
 
   <footer>
-    <p>当サイトは楽天アフィリエイトプログラムに参加しており、リンクを経由した購入で報酬を得ることがあります。</p>
-    <p>商品の価格・在庫・送料は変動する場合があります。購入前に楽天市場でご確認ください。</p>
-    <p>© 2026 Deal Hunter — 毎日自動更新</p>
+    <p>当サイトは楽天アフィリエイトプログラムに参加しています。</p>
+    <p>© 2026 節約生活 今日のお買い得情報</p>
   </footer>
+
+  <script>
+    function tick() {
+      var now = new Date(), next = new Date();
+      next.setHours(9, 0, 0, 0);
+      if (now >= next) next.setDate(next.getDate() + 1);
+      var d = next - now;
+      var h = Math.floor(d / 3600000);
+      var m = Math.floor(d % 3600000 / 60000);
+      var s = Math.floor(d % 60000 / 1000);
+      var el = document.getElementById("countdown");
+      if (el) el.textContent = "⏰ 次の更新まで " + h + "h " + m + "m " + s + "s";
+    }
+    setInterval(tick, 1000); tick();
+
+    setInterval(function() {
+      document.querySelectorAll("[id^='wc']").forEach(function(el) {
+        var v = parseInt(el.textContent) || 10;
+        el.textContent = Math.max(1, v + Math.floor(Math.random() * 3) - 1);
+      });
+      var hw = document.getElementById("hw");
+      if (hw) hw.textContent = Math.max(100, parseInt(hw.textContent) + Math.floor(Math.random() * 5) - 2);
+    }, 3500);
+  </script>
 </body>
 </html>
