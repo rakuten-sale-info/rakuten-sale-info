@@ -95,6 +95,21 @@ def fetch_items(app_id: str, access_key: str, affiliate_id: str) -> List[Dict]:
     return all_items
 
 
+CATEGORY_KEYWORDS = {
+    "food":    ["食品","鮭","さば","うなぎ","牛","豚","味噌","醤油","餃子","梅","蜂蜜","コーヒー","お菓子","せんべい","バームクーヘン","ちんすこう","きくらげ","ほっけ","大麦","雑穀","みそ汁","グルメ","柿","みかん","サーモン","マンゴー","海苔","高菜","うな重","丼","鯖","イワシ","干物","えびせん","牛丼","豚丼","鶏"],
+    "beauty":  ["美容","シャンプー","コスメ","美白","眉毛","目元","美容液","クリーム","パウダー","セラム","フェイス","オールインワン","化粧","ローション","乳液"],
+    "fashion": ["tシャツ","シャツ","アビレックス","ウエア"],
+    "daily":   ["フライパン","鍋","マット","マスク","電卓","sdカード","洗濯","日用品","雑貨"],
+}
+
+def categorize(name: str) -> str:
+    n = name.lower()
+    for cat, kws in CATEGORY_KEYWORDS.items():
+        if any(k in n for k in kws):
+            return cat
+    return "other"
+
+
 def normalize(raw: Dict, affiliate_id: str) -> Optional[Dict]:
     try:
         name     = raw.get("itemName", "").strip()
@@ -166,7 +181,7 @@ def render_card(item: Dict) -> str:
     show_stock = (abs(hash(item["name"])) % 3 == 0)
     stock_html = f'<span class="badge badge-stock">⚠️ 残り{stock_num}点！</span>' if show_stock else ""
 
-    return f"""      <article class="card">
+    return f"""      <article class="card" data-cat="{categorize(item['name'])}">
         {watcher}
         {rank_html}
         <div class="hype {hype_class}">{hype}</div>
@@ -288,6 +303,10 @@ def build_html(items: List[Dict], updated: str) -> str:
     .btn{{display:block;text-align:center;text-decoration:none;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;padding:.88rem;border-radius:12px;font-weight:900;font-size:.95rem;margin-top:.55rem;box-shadow:0 5px 18px rgba(230,57,70,.45);letter-spacing:.03em;position:relative;overflow:hidden;animation:wiggle 3s ease-in-out infinite;}}
     .btn::after{{content:"";position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);animation:shine 2s ease-in-out infinite;}}
 
+    .cat-item{{cursor:pointer;padding:.35rem .5rem;border-radius:8px;transition:background .15s;list-style:none;}}
+    .cat-item:hover{{background:#fff0f0;color:var(--red);}}
+    .cat-item.active{{background:var(--red)!important;color:#fff!important;font-weight:900;}}
+    .cat-item::before{{content:none!important;}}
     footer{{text-align:center;padding:2.5rem 1rem;font-size:.75rem;color:var(--muted);border-top:1px solid #e2e8f0;margin-top:3rem;line-height:1.9;}}
 
     @media(max-width:640px){{
@@ -338,13 +357,12 @@ def build_html(items: List[Dict], updated: str) -> str:
       <aside class="sidebar">
         <div class="sbox">
           <h3>📂 カテゴリ</h3>
-          <ul>
-            <li>🍱 食品・グルメ</li>
-            <li>🧴 日用品・雑貨</li>
-            <li>💄 美容・健康</li>
-            <li>👕 ファッション</li>
-            <li>🏠 インテリア</li>
-            <li>📦 まとめ買い</li>
+          <ul id="cat-list">
+            <li class="cat-item active" onclick="filterCat('all')" data-cat="all">📋 すべて表示</li>
+            <li class="cat-item" onclick="filterCat('food')" data-cat="food">🍱 食品・グルメ</li>
+            <li class="cat-item" onclick="filterCat('beauty')" data-cat="beauty">💄 美容・健康</li>
+            <li class="cat-item" onclick="filterCat('fashion')" data-cat="fashion">👕 ファッション</li>
+            <li class="cat-item" onclick="filterCat('daily')" data-cat="daily">🧴 日用品・雑貨</li>
           </ul>
         </div>
         <div class="sbox">
@@ -397,6 +415,15 @@ def build_html(items: List[Dict], updated: str) -> str:
       if (el) el.textContent = "⏰ 次の更新まで " + h + "h " + m + "m " + s + "s";
     }}
     setInterval(tick, 1000); tick();
+
+    function filterCat(cat) {{
+      document.querySelectorAll('.card').forEach(function(c) {{
+        c.style.display = (cat==='all' || c.dataset.cat===cat) ? '' : 'none';
+      }});
+      document.querySelectorAll('.cat-item').forEach(function(li) {{
+        li.classList.toggle('active', li.dataset.cat===cat);
+      }});
+    }}
 
     setInterval(function() {{
       document.querySelectorAll("[id^='wc']").forEach(function(el) {{
