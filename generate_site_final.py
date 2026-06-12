@@ -333,7 +333,7 @@ def build_html(items: List[Dict], updated: str) -> str:
   </div>
 
   <div class="banner-area">
-    <a href="#" style="display:block;text-decoration:none;">
+    <a href="https://hb.afl.rakuten.co.jp/ichiba/54d0824b.d9b23123.54d0824c.c43ff40d/?pc=https%3A%2F%2Fevent.rakuten.co.jp%2Fcampaign%2Fpoint-up%2Fmarathon%2F" target="_blank" rel="noopener sponsored" style="display:block;text-decoration:none;">
       <svg width="100%" viewBox="0 0 680 120" role="img">
         <rect x="0" y="0" width="680" height="120" rx="14" fill="#FF3B5C"/>
         <circle cx="50" cy="30" r="22" fill="#FFD600"/>
