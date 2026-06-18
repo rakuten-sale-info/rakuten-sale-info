@@ -195,7 +195,6 @@ def render_card(item: Dict) -> str:
             <span class="rev-count">({item["review_count"]:,}件のレビュー)</span>
           </div>
           <div class="badges">
-            <span class="badge badge-rate">報酬率 {item["aff_rate"]}%</span>
             {stock_html}
           </div>
           <a class="btn" href="{html.escape(item['url'])}" target="_blank" rel="noopener sponsored">
@@ -381,13 +380,12 @@ def build_html(items: List[Dict], updated: str) -> str:
       <aside class="sidebar">
         <div class="sbox">
           <h3>🎉 楽天セール情報</h3>
-          <div class="sale-b"><div class="t">次回スーパーSALE</div><div class="d">2026年6月！</div></div>
-          <div class="sale-b"><div class="t">お買い物マラソン</div><div class="d">随時開催中！</div></div>
+          <div class="sale-b"><div class="t">お買い物マラソン</div><div class="d">6/20(土)20時〜開催！</div></div>
         </div>
         <div class="sbox">
           <h3>📢 SNSフォロー</h3>
-          <a class="sns-btn" href="https://x.com" target="_blank">𝕏 Xでフォロー</a>
-          <p>毎日お得情報を投稿中！フォローして見逃さないように♪</p>
+          <a class="sns-btn" href="https://www.pinterest.jp/topsecret0116/" target="_blank" style="background:#E60023;">📌 Pinterestでフォロー</a>
+          <p>お得情報をピンで毎日更新中！フォローして見逃さないように♪</p>
         </div>
         <div class="sbox">
           <h3>ℹ️ このサイトについて</h3>
