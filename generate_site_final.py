@@ -243,10 +243,10 @@ def build_html(items: List[Dict], updated: str) -> str:
     .ticker{{display:inline-block;white-space:nowrap;color:#FFD600;font-size:.85rem;font-weight:800;animation:ticker 25s linear infinite;letter-spacing:.05em;padding-left:100%;}}
 
     /* ── バナー ── */
-    .banner-area{{max-width:900px;margin:1.5rem auto 0;padding:0 1rem;}}
+    .banner-area{{max-width:1280px;margin:1.5rem auto 0;padding:0 1rem;}}
 
     /* ── レイアウト ── */
-    main{{max-width:960px;margin:1.5rem auto;padding:0 1rem;}}
+    main{{max-width:1280px;margin:1.5rem auto;padding:0 1rem;}}
     .layout{{display:flex;gap:1.2rem;align-items:flex-start;}}
     .sidebar{{width:175px;flex-shrink:0;display:flex;flex-direction:column;gap:.9rem;}}
     .sbox{{background:var(--white);border-radius:14px;padding:.9rem;box-shadow:var(--shadow);border-left:4px solid var(--red);}}
